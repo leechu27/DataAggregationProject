@@ -1,0 +1,5 @@
+Hello, my name is Alon Djurinsky and I am a second-year Computer Science and Statistics student at the University of Toronto.
+In a team, I usually prefer having an overview of the entire codebase, so that I can help with issues, or take over if ever needed.
+I have worked extensively with java and python, but I also enjoy learning new languages and frameworks when I need to.
+Outside of programming, I enjoy going rock climbing with friends, as well as seeing whatever new movie is out in theaters.
+In the future, I plan to work in some data-related field, preferably machine learning as that is what currently holds my interest the most.
