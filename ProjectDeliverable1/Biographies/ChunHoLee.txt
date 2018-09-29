@@ -1,3 +1,7 @@
 My name is Chun Ho Lee and I'm a third year Computer Science Specialist at the University of Toronto at Scarborough.
 I am a team player and like to stay on top of the work given to me. My most proficient programming languages are 
-Python, Java, and C. I am currently interested in the Computer Security aspect of Computer Science.
+Python, Java, and C. I am currently interested in the Computer Security aspect of Computer Science. I hope to be able
+to complete a successful project in CSCC01. I like to lead if no one else steps up to lead but my past experiences
+leads me to believe it is easier to be a follower than leader so I hope if someone does lead, that he or she is capable.
+My expectations for this course is that I will be able to feel comfortable in the workplace after experiencing the work
+cycles we will do throughout the coming weeks.
