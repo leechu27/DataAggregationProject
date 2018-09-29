@@ -1,0 +1,7 @@
+My name is Stephen Liu, 3rd year Computer Science student, comprehensive stream.
+Overall, I like to be organized and am self motivated to learn and work.
+Some of my favorite areas include algorithms and data structures, along with app development.
+I have done two co-op work terms so far, one at the Bank of Montreal, the other at the Ministry of Education.
+Some personal projects I have been working on include, a Django based news aggregator. It aggregates political news, and computes trends.
+In addition, I am also working on a redesign of the UI on the Spotify music app.
+Excited for this course and project, I hope to work well with my other team mates and to deliver a well made solution to the client.
