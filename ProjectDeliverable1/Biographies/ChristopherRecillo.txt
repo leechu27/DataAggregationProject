@@ -1,2 +1,6 @@
-I am Christopher Recillo and I am a third year Computer Science Specialist at the University of Toronto, Scarborough campus.
+I am Christopher Recillo and I am a third year Computer Science Specialist, software engineering stream, at the University of Toronto.
 I prefer to be on the supporting side of teams, assisting other members in order to gain motivation and ideas for my side of the work.
+I have a fondeness towards the designing of algorithms. I have confideence working in Python, Java and C, but given time I can learn another language.
+What I expect out of this course is that I would get a general sense of what it is like to work for an actual client
+and of what a workplace environment will be like. 
+Since this is my first instance of working for a real client, I am hopeful that this project will satisfy them.
