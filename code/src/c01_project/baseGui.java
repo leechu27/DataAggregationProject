@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class base_gui extends JFrame {
+public class baseGui extends JFrame {
 
 	private JPanel contentPane;
 
@@ -18,7 +18,7 @@ public class base_gui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					base_gui frame = new base_gui();
+					baseGui frame = new baseGui();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,13 +30,16 @@ public class base_gui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public base_gui() {
+	public baseGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 528, 375);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		JPanel clientProfile = new JPanel();
+		contentPane.add(clientProfile, BorderLayout.CENTER);
 		
 	}
 
