@@ -5,3 +5,8 @@ Added project deliverable 1
 - Added team picture, logo, and picture of team sharing a meal
 - Added biographies and corresponding pictures
 - Added report and team agreement
+
+Added project deliverable 2
+- Added user stories
+- Added personas
+- Added tasks for the week
