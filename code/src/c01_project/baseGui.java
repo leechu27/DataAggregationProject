@@ -9,6 +9,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import java.awt.FlowLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
 
 public class baseGui extends JFrame {
 
@@ -41,7 +46,7 @@ public class baseGui extends JFrame {
 	 */
 	public baseGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 528, 375);
+		setBounds(100, 100, 596, 375);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -53,54 +58,128 @@ public class baseGui extends JFrame {
 		// adding all the fields for client profile page
 		
 		JLabel lblUniqueIdentifier = new JLabel("Unique Identifier:");
-		clientProfile.add(lblUniqueIdentifier);
 		
 		uniqueIdentifier = new JTextField();
-		clientProfile.add(uniqueIdentifier);
 		uniqueIdentifier.setColumns(10);
 		
 		JLabel lblDateOfBirth = new JLabel("Date of Birth (YYYY-MM-DD):");
-		clientProfile.add(lblDateOfBirth);
 		
 		dateBirth = new JTextField();
-		clientProfile.add(dateBirth);
 		dateBirth.setColumns(10);
 		
 		JLabel lblPhoneNumber = new JLabel("Phone Number:");
-		clientProfile.add(lblPhoneNumber);
 		
 		phoneNum = new JTextField();
-		clientProfile.add(phoneNum);
 		phoneNum.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		clientProfile.add(lblEmail);
 		
 		email = new JTextField();
-		clientProfile.add(email);
 		email.setColumns(10);
 		
 		JLabel lblAddressLine = new JLabel("Address Line 1:");
-		clientProfile.add(lblAddressLine);
 		
 		address1 = new JTextField();
-		clientProfile.add(address1);
 		address1.setColumns(10);
 		
 		JLabel lblAddressLine_1 = new JLabel("Address Line 2:");
-		clientProfile.add(lblAddressLine_1);
 		
 		address2 = new JTextField();
-		clientProfile.add(address2);
 		address2.setColumns(10);
 		
 		String[] officalLang = {"English", "French"};
 		
 		JLabel lblLanguagePreference = new JLabel("Language Preference:");
-		clientProfile.add(lblLanguagePreference);
 		JComboBox comboBox = new JComboBox(officalLang);
-		clientProfile.add(comboBox);
+		
+		JButton btnSubmit = new JButton("Submit");
+		
+		JButton btnCancel = new JButton("Cancel");
+		
+		JLabel lblClientProfile = new JLabel("Client Profile");
+		GroupLayout gl_clientProfile = new GroupLayout(clientProfile);
+		gl_clientProfile.setHorizontalGroup(
+			gl_clientProfile.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_clientProfile.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(lblAddressLine_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(address2, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(lblPhoneNumber)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(phoneNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblEmail)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(email, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(268, Short.MAX_VALUE))
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(lblLanguagePreference)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(391, Short.MAX_VALUE))
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(btnSubmit)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnCancel)
+							.addContainerGap(424, Short.MAX_VALUE))
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(lblUniqueIdentifier)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(uniqueIdentifier, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblDateOfBirth)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(dateBirth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(249))
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(lblClientProfile, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(514, Short.MAX_VALUE))
+						.addGroup(gl_clientProfile.createSequentialGroup()
+							.addComponent(lblAddressLine)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(address1, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
+		);
+		gl_clientProfile.setVerticalGroup(
+			gl_clientProfile.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_clientProfile.createSequentialGroup()
+					.addComponent(lblClientProfile)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblUniqueIdentifier)
+						.addComponent(uniqueIdentifier, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDateOfBirth)
+						.addComponent(dateBirth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPhoneNumber)
+						.addComponent(phoneNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblEmail)
+						.addComponent(email, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAddressLine)
+						.addComponent(address1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAddressLine_1)
+						.addComponent(address2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblLanguagePreference)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_clientProfile.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSubmit)
+						.addComponent(btnCancel))
+					.addGap(134))
+		);
+		clientProfile.setLayout(gl_clientProfile);
 		
 	}
-
 }
