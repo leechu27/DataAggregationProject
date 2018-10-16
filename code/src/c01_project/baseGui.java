@@ -45,6 +45,7 @@ public class baseGui extends JFrame {
 	 * Create the frame.
 	 */
 	public baseGui() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 596, 375);
 		contentPane = new JPanel();
@@ -52,11 +53,17 @@ public class baseGui extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+
+		JPanel clientProfilePanel = clientProfile();
+		contentPane.add(clientProfilePanel, BorderLayout.CENTER);
+		
+	}
+	
+	// initiates our client profile page
+	public JPanel clientProfile(){
+		// adding all the fields for client profile page
 		JPanel clientProfile = new JPanel();
 		contentPane.add(clientProfile, BorderLayout.CENTER);
-		
-		// adding all the fields for client profile page
-		
 		JLabel lblUniqueIdentifier = new JLabel("Unique Identifier:");
 		
 		uniqueIdentifier = new JTextField();
@@ -180,6 +187,6 @@ public class baseGui extends JFrame {
 					.addGap(134))
 		);
 		clientProfile.setLayout(gl_clientProfile);
-		
+		return clientProfile;
 	}
 }
