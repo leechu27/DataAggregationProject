@@ -15,6 +15,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class baseGui extends JFrame {
@@ -366,14 +368,30 @@ public class baseGui extends JFrame {
 		
 		JLabel lblCareForNewcomer = new JLabel("Care for Newcomer Children?");
 		
-		Integer[] numChild = {0,1,2,3,4,5};
-		
-		JComboBox comboBoxNumChildren = new JComboBox(numChild);
-		
+		// Contains the dynamic buttons and fields for child options
 		JPanel childPanel = new JPanel();
-		JLabel xd = new JLabel("xd");
-		childPanel.add(xd);
 		
+		Integer[] numChildOptions = {0,1,2,3,4,5};
+		
+		JComboBox comboBoxNumChildren = new JComboBox(numChildOptions);
+		
+		comboBoxNumChildren.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int numbChildSelected = comboBoxNumChildren.getSelectedIndex();
+				// hooking up combo box to dynamically generate labels and fields for child support
+				JLabel[][] childLables = createChildFields(numbChildSelected);
+				
+				childPanel.removeAll();
+				childPanel.repaint();
+
+				for (int i = 0; i<3; i++) {
+					for (int j = 0; j<numbChildSelected; j++) {
+						childPanel.add(childLables[i][j]);
+					}
+				}
+			}
+		});
 		
 		GroupLayout gl_inforOrient = new GroupLayout(infoOrient);
 		gl_inforOrient.setHorizontalGroup(
@@ -711,14 +729,13 @@ public class baseGui extends JFrame {
 		return infoOrient;
 	}
 	
-	private JLabel[][] createChildFields(Integer numChild) {
-		JLabel[][] result = new JLabel[][] {};
-		int numChildInt = numChild.intValue();
+	private JLabel[][] createChildFields(int numChild) {
+		JLabel[][] result = new JLabel[3][];
 		// if we have children
-		if(!numChild.equals(new Integer(0))) {
-			JLabel childLabel[] = new JLabel[numChildInt];
-			JLabel ageLabel[] = new JLabel[numChildInt];
-			JLabel careLabel[] = new JLabel[numChildInt];
+		if(!(numChild == 0)) {
+			JLabel childLabel[] = new JLabel[numChild];
+			JLabel ageLabel[] = new JLabel[numChild];
+			JLabel careLabel[] = new JLabel[numChild];
 		
 			for (int i = 0; i<numChild;i++) {
 				childLabel[i] = new JLabel("Child " + i);
