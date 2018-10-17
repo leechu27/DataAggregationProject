@@ -57,8 +57,8 @@ public class baseGui extends JFrame {
 		setContentPane(contentPane);
 	    
 		JPanel clientProfilePanel = infoOrient();
+		// wrapping our client Profile Panel in a scroll pane
 	    JScrollPane scrollPane = new JScrollPane(clientProfilePanel);
-	    
 	    
 	    contentPane.add(scrollPane, BorderLayout.CENTER);
 		
@@ -370,6 +370,11 @@ public class baseGui extends JFrame {
 		
 		JComboBox comboBoxNumChildren = new JComboBox(numChild);
 		
+		JPanel childPanel = new JPanel();
+		JLabel xd = new JLabel("xd");
+		childPanel.add(xd);
+		
+		
 		GroupLayout gl_inforOrient = new GroupLayout(infoOrient);
 		gl_inforOrient.setHorizontalGroup(
 			gl_inforOrient.createParallelGroup(Alignment.LEADING)
@@ -504,28 +509,28 @@ public class baseGui extends JFrame {
 											.addComponent(chckbxInterpersonalConflictReferrals)))))
 							.addGap(272))
 						.addGroup(gl_inforOrient.createSequentialGroup()
-							.addComponent(lblMaterialsCovered, GroupLayout.DEFAULT_SIZE, 1596, Short.MAX_VALUE)
+							.addComponent(lblMaterialsCovered, GroupLayout.DEFAULT_SIZE, 1599, Short.MAX_VALUE)
 							.addGap(476))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(lblWasEssentialSkills)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBoxEssentialSkills, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(1669, Short.MAX_VALUE))
+							.addContainerGap(1672, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(btnSubmit)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnCancel)
-							.addContainerGap(1936, Short.MAX_VALUE))
+							.addContainerGap(1939, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(lblNewLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(langService, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(1908, Short.MAX_VALUE))
+							.addContainerGap(1911, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(lblLanguagePreference)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(langPref, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(1903, Short.MAX_VALUE))
+							.addContainerGap(1906, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_inforOrient.createSequentialGroup()
@@ -535,7 +540,7 @@ public class baseGui extends JFrame {
 								.addComponent(lblWasLifeSkills))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBoxLifeSkills, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(1586, Short.MAX_VALUE))
+							.addContainerGap(1589, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(lblSupportServicesReceived)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -549,7 +554,10 @@ public class baseGui extends JFrame {
 							.addComponent(chckbxLifeSkills)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(chckbxRightsAndResponsibilities)
-							.addContainerGap())))
+							.addContainerGap())
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(childPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(2065, Short.MAX_VALUE))))
 		);
 		gl_inforOrient.setVerticalGroup(
 			gl_inforOrient.createParallelGroup(Alignment.LEADING)
@@ -680,7 +688,9 @@ public class baseGui extends JFrame {
 						.addComponent(comboBoxSupportServices, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCareForNewcomer)
 						.addComponent(comboBoxNumChildren, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(childPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
 					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLanguagePreference)
 						.addComponent(langPref, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -694,12 +704,33 @@ public class baseGui extends JFrame {
 						.addComponent(btnCancel))
 					.addContainerGap())
 		);
+		JLabel childLabel[] = new JLabel[5];
+
+		
 		infoOrient.setLayout(gl_inforOrient);
 		return infoOrient;
 	}
 	
-	private JPanel[] createChildFields(Integer numChild) {
-		return null;
+	private JLabel[][] createChildFields(Integer numChild) {
+		JLabel[][] result = new JLabel[][] {};
+		int numChildInt = numChild.intValue();
+		// if we have children
+		if(!numChild.equals(new Integer(0))) {
+			JLabel childLabel[] = new JLabel[numChildInt];
+			JLabel ageLabel[] = new JLabel[numChildInt];
+			JLabel careLabel[] = new JLabel[numChildInt];
+		
+			for (int i = 0; i<numChild;i++) {
+				childLabel[i] = new JLabel("Child " + i);
+				ageLabel[i] = new JLabel("Child " + i + " Age");
+				careLabel[i] = new JLabel("Child " + i + " Care");
+			}
+			result[0] = childLabel;
+			result[1] = ageLabel;
+			result[2] = careLabel;
+			
+		}
+		return result;
 	
 	}
 }
