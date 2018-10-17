@@ -366,7 +366,9 @@ public class baseGui extends JFrame {
 		
 		JLabel lblCareForNewcomer = new JLabel("Care for Newcomer Children?");
 		
-		JComboBox comboBoxNumChildren = new JComboBox();
+		Integer[] numChild = {0,1,2,3,4,5};
+		
+		JComboBox comboBoxNumChildren = new JComboBox(numChild);
 		
 		GroupLayout gl_inforOrient = new GroupLayout(infoOrient);
 		gl_inforOrient.setHorizontalGroup(
@@ -695,4 +697,10 @@ public class baseGui extends JFrame {
 		infoOrient.setLayout(gl_inforOrient);
 		return infoOrient;
 	}
+	
+	private JPanel[] createChildFields(Integer numChild) {
+		return null;
+	
+	}
 }
+
