@@ -20,10 +20,32 @@ public class databaseSetup {
     initializeNewTables("test.db");
   }
 
+  /**
+   * Runs raw sql on the server
+   * NOTE the lack of visibility midifier is on purpose,
+   * this method is package private
+   * @param sql
+   * @return
+   */
+  static String runRawSQL(String sql, String databasePath) {
+    String output = "";
 
-  public static void createNewDatabase(String fileName) {
+    // runs the actual sql command
+    String url = "jdbc:sqlite:" + databasePath;
+    try (Connection conn = DriverManager.getConnection(url);
+         Statement stmt = conn.createStatement()) {
+      stmt.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
 
-    String url = "jdbc:sqlite:" + fileName;
+    return output;
+  }
+
+
+  public static void createNewDatabase(String databasePath) {
+
+    String url = "jdbc:sqlite:" + databasePath;
 
     try (Connection conn = DriverManager.getConnection(url)) {
       if (conn != null) {
@@ -37,8 +59,8 @@ public class databaseSetup {
     }
   }
 
-  public static void initializeNewTables(String fileName) {
-    String url = "jdbc:sqlite:" + fileName;
+  public static void initializeNewTables(String databasePath) {
+    String url = "jdbc:sqlite:" + databasePath;
 
     String sqlBasicTable = "CREATE TABLE IF NOT EXISTS basic_data (\n"
             + "	id integer PRIMARY KEY,\n"
@@ -50,7 +72,6 @@ public class databaseSetup {
             + "	language_of_service text,\n"
             + "	language_of_preference text\n"
             + ");";
-
 
     String sqlOrientation = "CREATE TABLE IF NOT EXISTS information_and_orientation (\n"
             + "	id integer PRIMARY KEY,\n"
@@ -108,11 +129,11 @@ public class databaseSetup {
       stmt.execute(sqlOrientation);
       System.out.println("created incomplete orientation table");
       stmt.execute(sqlEmployment);
-      System.out.println("created incomplete basic table");
+      System.out.println("created incomplete employment table");
       stmt.execute(sqlEnrollment);
-      System.out.println("created  basic table");
+      System.out.println("created incomplete enrollment table");
       stmt.execute(sqlChildren);
-      System.out.println("created basic table");
+      System.out.println("created children table");
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
