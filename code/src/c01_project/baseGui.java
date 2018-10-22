@@ -17,11 +17,16 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.GridLayout;
 
 
 public class baseGui extends JFrame {
-
-	private JPanel contentPane;
 	private JTextField uniqueIdentifier;
 	private JTextField dateBirth;
 	private JTextField postalCode;
@@ -29,6 +34,7 @@ public class baseGui extends JFrame {
 	private JTextField refer;
 	private JTextField serviceRecieved;
 	private JTextField numMinutes;
+	private JTextField txtFilepath;
 
 	/**
 	 * Launch the application.
@@ -52,21 +58,74 @@ public class baseGui extends JFrame {
 	public baseGui() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 873, 1004);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-	    
-		JPanel clientProfilePanel = infoOrient();
+		setBounds(0, 0, 500, 500);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNavigation = new JMenu("Navigation");
+		menuBar.add(mnNavigation);
+		
+		JMenuItem mntmHome = new JMenuItem("Home");
+		mnNavigation.add(mntmHome);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mnNavigation.add(mntmExit);
+		
+		// Grid layout of the buttons
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] {30, 30, 0, 0, 30, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[] {10, 30, 30, 30, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
+		
+
+		
+		
+		
+
+		// JPanel clientProfilePanel = infoOrient();
 		// wrapping our client Profile Panel in a scroll pane
-	    JScrollPane scrollPane = new JScrollPane(clientProfilePanel);
+	    // JScrollPane scrollPane = new JScrollPane(clientProfilePanel);
 	    
-	    contentPane.add(scrollPane, BorderLayout.CENTER);
+	    // contentPane.add(scrollPane, BorderLayout.CENTER);	
 		
 	    //contentPane.add(clientProfilePanel, BorderLayout.NORTH);
 		
 		
+	}
+	public JPanel uploadPage() {
+		JButton btnBrowse = new JButton("Browse");
+		GridBagConstraints gbc_btnBrowse = new GridBagConstraints();
+		gbc_btnBrowse.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBrowse.gridx = 3;
+		gbc_btnBrowse.gridy = 3;
+		getContentPane().add(btnBrowse, gbc_btnBrowse);
+		
+		txtFilepath = new JTextField();
+		GridBagConstraints gbc_txtFilepath = new GridBagConstraints();
+		gbc_txtFilepath.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFilepath.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFilepath.gridx = 4;
+		gbc_txtFilepath.gridy = 3;
+		getContentPane().add(txtFilepath, gbc_txtFilepath);
+		txtFilepath.setColumns(10);
+		
+		JButton btnUpload = new JButton("Upload");
+		GridBagConstraints gbc_btnUpload = new GridBagConstraints();
+		gbc_btnUpload.insets = new Insets(0, 0, 5, 5);
+		gbc_btnUpload.gridx = 5;
+		gbc_btnUpload.gridy = 3;
+		getContentPane().add(btnUpload, gbc_btnUpload);
+		
+		JButton btnCancel_1 = new JButton("Cancel");
+		GridBagConstraints gbc_btnCancel_1 = new GridBagConstraints();
+		gbc_btnCancel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancel_1.gridx = 5;
+		gbc_btnCancel_1.gridy = 4;
+		getContentPane().add(btnCancel_1, gbc_btnCancel_1);
+		return null;
 	}
 	
 	// initiates our client profile page
@@ -370,6 +429,12 @@ public class baseGui extends JFrame {
 		
 		// Contains the dynamic buttons and fields for child options
 		JPanel childPanel = new JPanel();
+		GridBagLayout gbl_childPanel = new GridBagLayout();
+		gbl_childPanel.columnWidths = new int[]{0};
+		gbl_childPanel.rowHeights = new int[]{0};
+		gbl_childPanel.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_childPanel.rowWeights = new double[]{Double.MIN_VALUE};
+		childPanel.setLayout(gbl_childPanel);
 		
 		Integer[] numChildOptions = {0,1,2,3,4,5};
 		
@@ -722,8 +787,6 @@ public class baseGui extends JFrame {
 						.addComponent(btnCancel))
 					.addContainerGap())
 		);
-		JLabel childLabel[] = new JLabel[5];
-
 		
 		infoOrient.setLayout(gl_inforOrient);
 		return infoOrient;
