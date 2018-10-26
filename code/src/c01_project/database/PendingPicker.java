@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-public class T3 {
+public class PendingPicker {
 	public static void main(String[] args) throws IOException {
 		// ignore this, I used this to test my function
 		// System.getProperty("user.dir") gets the current working directory
