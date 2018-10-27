@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TEQHighLevel extends JFrame {
+public class TEQHighLevelGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -27,7 +27,7 @@ public class TEQHighLevel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TEQHighLevel frame = new TEQHighLevel();
+					TEQHighLevelGUI frame = new TEQHighLevelGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class TEQHighLevel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TEQHighLevel() {
+	public TEQHighLevelGUI() {
 		setTitle("TEQ Mid level\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

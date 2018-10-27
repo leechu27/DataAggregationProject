@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TEQLowLevel extends JFrame {
+public class TEQLowLevelGUI extends JFrame {
 
 	private JPanel contentPane;
 
@@ -23,7 +23,7 @@ public class TEQLowLevel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TEQLowLevel frame = new TEQLowLevel();
+					TEQLowLevelGUI frame = new TEQLowLevelGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class TEQLowLevel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TEQLowLevel() {
+	public TEQLowLevelGUI() {
 		setTitle("TEQ low level\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

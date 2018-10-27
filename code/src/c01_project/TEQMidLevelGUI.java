@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
-public class TEQMidLevel extends JFrame {
+public class TEQMidLevelGUI extends JFrame {
 
 	private JPanel contentPane;
 
@@ -27,7 +27,7 @@ public class TEQMidLevel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TEQMidLevel frame = new TEQMidLevel();
+					TEQMidLevelGUI frame = new TEQMidLevelGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class TEQMidLevel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TEQMidLevel() {
+	public TEQMidLevelGUI() {
 		setTitle("TEQ Mid level\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
