@@ -22,7 +22,7 @@ public class PendingDatabaseEntry {
    * each insertion contains the table name, Column name,
    * and data to be inserted respectively in that order
    */
-  private HashMap<Integer, List<List<String>>> insertions;
+  private HashMap<String, List<List<String>>> insertions;
 
   /**
    * Create new entries using an ICare template
@@ -61,7 +61,7 @@ public class PendingDatabaseEntry {
    *  Inserts into the database
    *
    */
-  public void addData(int userId, String tableName, String columnName, String data) {
+  public void addData(String userId, String tableName, String columnName, String data) {
     //TODO check whether this data is even in the database in the first place
     //TODO get a safer method to do this, that checks the type of the data instead of assuming everything is raw text
     if (!insertions.containsKey(userId)) {
@@ -88,7 +88,7 @@ public class PendingDatabaseEntry {
   public void dumpIntoDatabase() {
 
     // Go through each user, and add their data to the database
-    for (Integer userId : insertions.keySet()) {
+    for (String userId : insertions.keySet()) {
       for (List<String> data : insertions.get(userId)) {
         String tableName = data.get(0);
         String columnName = data.get(1);
