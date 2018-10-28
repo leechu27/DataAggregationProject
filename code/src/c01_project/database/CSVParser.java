@@ -10,6 +10,11 @@ public class CSVParser {
 
   // Where the primary ID used to identify each user can be found in the csv
   private static final int PRIMARY_ID_COLUMN = 0;
+  private String databasePath;
+
+  public CSVParser(String databasePath) {
+    this.databasePath = databasePath;
+  }
 
   /**
    * reads the given csv file for
@@ -63,11 +68,7 @@ public class CSVParser {
         }
       }
     }
-
-
-
-    entry.dumpIntoDatabase();
-    return null;
+    return entry.dumpIntoDatabase(databasePath);
   }
 
 }

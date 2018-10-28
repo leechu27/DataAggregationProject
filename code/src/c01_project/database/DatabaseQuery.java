@@ -33,7 +33,7 @@ public class DatabaseQuery {
    * queries the database
    * @param pathToDatabase the path to the SQLite database
    */
-  public ResultSet queryWithSQL(String pathToDatabase, String rawSQL) {
+  public ResultSet queryWithSQL(String rawSQL) {
 
     ResultSet output = null;
     // make sure the programmer is not trying to make anything dangerous
@@ -42,10 +42,10 @@ public class DatabaseQuery {
             rawSQL.startsWith("select");
 
     // runs the actual sql command
-    String url = "jdbc:sqlite:" + pathToDatabase;
+    String url = "jdbc:sqlite:" + this.path;
     try {
       Statement stmt = connection.createStatement();
-      stmt.executeQuery(rawSQL);
+      output = stmt.executeQuery(rawSQL);
     }
     catch (SQLException e) {
       System.out.println(e.getMessage());
