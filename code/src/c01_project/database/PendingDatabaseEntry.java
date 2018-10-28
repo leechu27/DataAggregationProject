@@ -22,32 +22,7 @@ public class PendingDatabaseEntry {
    * each insertion contains the table name, Column name,
    * and data to be inserted respectively in that order
    */
-  private HashMap<Integer, List<List<String>>> insertions;
-
-  /**
-   * Create new entries using an ICare template
-   * currently accepts: .csv
-   * TODO need to accept: .xls, .xlsx
-   * @param filePath
-   */
-  public PendingDatabaseEntry(String filePath) {
-    // get the lines of the file, assumes we have csv of the ICare template
-    try {
-      List<String> lines = Files.readAllLines(Paths.get(filePath));
-      // TODO parse each of these lines and add them to the insertions Hashmap
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /** Reads a line of an ICare template
-   *
-   * @param ICareTemplateLine
-   */
-  private void readICareTemplateLine(String ICareTemplateLine) {
-
-  }
+  private HashMap<String, List<List<String>>> insertions;
 
   /**
    * Create a row to add to the database from scratch
@@ -61,7 +36,7 @@ public class PendingDatabaseEntry {
    *  Inserts into the database
    *
    */
-  public void addData(int userId, String tableName, String columnName, String data) {
+  public void addData(String userId, String tableName, String columnName, String data) {
     //TODO check whether this data is even in the database in the first place
     //TODO get a safer method to do this, that checks the type of the data instead of assuming everything is raw text
     if (!insertions.containsKey(userId)) {
@@ -85,10 +60,11 @@ public class PendingDatabaseEntry {
    *  Once all of the fields you want to add are added, you can run this
    *  method to dump all of the data into the main database
    */
-  public void dumpIntoDatabase() {
-
+  public String dumpIntoDatabase(String databaseName) {
+    DatabaseQuery dq = new DatabaseQuery(databaseName);
+    String ret = "";
     // Go through each user, and add their data to the database
-    for (Integer userId : insertions.keySet()) {
+    for (String userId : insertions.keySet()) {
       for (List<String> data : insertions.get(userId)) {
         String tableName = data.get(0);
         String columnName = data.get(1);
@@ -100,8 +76,10 @@ public class PendingDatabaseEntry {
         "WHERE\n" +
         " id = " + userId.toString() + ";";
 
+        ret += dq.queryWithSQL(sql).toString();
       }
     }
+    return ret;
   }
 
 }
