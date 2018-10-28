@@ -22,20 +22,20 @@ public class databaseSetup {
 
   /**
    * Runs raw sql on the server
-   * NOTE the lack of visibility midifier is on purpose,
    * this method is package private
    * @param sql
    * @return
    */
-  static String runRawSQL(String sql, String databasePath) {
-    String output = "";
+  static ResultSet runRawSQL(String sql, String databasePath) {
+    ResultSet output = null;
 
     // runs the actual sql command
     String url = "jdbc:sqlite:" + databasePath;
-    try (Connection conn = DriverManager.getConnection(url);
-         Statement stmt = conn.createStatement()) {
+    try {Connection conn = DriverManager.getConnection(url);
+      Statement stmt = conn.createStatement();
       stmt.execute(sql);
-    } catch (SQLException e) {
+    }
+    catch (SQLException e) {
       System.out.println(e.getMessage());
     }
 
