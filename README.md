@@ -15,3 +15,6 @@ Added project deliverable 3
 - Added code from spint 0 and sprint 1
 - Added Sprint Backlog for sprint 0 and sprint 1
 - Added Product Backlog for sprint 0 and sprint 1
+
+Running Instructions:
+This project uses maven to build. Simply run `mvn compile` to compile the code.
