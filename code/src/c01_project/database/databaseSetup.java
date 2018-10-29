@@ -18,6 +18,8 @@ public class databaseSetup {
   public static void main(String[] args) {
     createNewDatabase("test.db");
     initializeNewTables("test.db");
+    CSVParser t1=new CSVParser("/src/c01_project.database/test.db");
+    t1.parseCSVBasicICareTemplate("sample_data.csv");
   }
 
   /**
