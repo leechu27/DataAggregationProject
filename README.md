@@ -10,3 +10,8 @@ Added project deliverable 2
 - Added user stories
 - Added personas
 - Added tasks for the week
+
+Added project deliverable 3
+- Added code from spint 0 and sprint 1
+- Added Sprint Backlog for sprint 0 and sprint 1
+- Added Product Backlog for sprint 0 and sprint 1
