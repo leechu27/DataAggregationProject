@@ -1,4 +1,4 @@
-package c01_project;
+package c01_project.gui;
 
 @SuppressWarnings("serial")
 public class FileExistsException extends Exception {
