@@ -15,17 +15,17 @@ public class Report {
 	 * @throws InvalidFileException if file name is not of .csv format
 	 * @throws FileExistsException if file name is linked to an existing file
 	 */
-	public Report(String name, String location) throws InvalidFileException, FileExistsException{
+	public Report(String name, String location) throws c01_project.gui.InvalidFileException, c01_project.gui.FileExistsException {
 		if (name.matches(fileRegex)) {
 			
 			File file = new File(location + name);
 			if (file.exists()) {
-				throw new FileExistsException();
+				throw new c01_project.gui.FileExistsException();
 			}
 			this.location = location;
 			this.name = name;
 		}
-		throw new InvalidFileException();
+		throw new c01_project.gui.InvalidFileException();
 	}
 	
 	/*public static void main(String[] args) {
