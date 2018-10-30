@@ -15,11 +15,16 @@ public class databaseSetup {
           "client_exit"
   };
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException {
     createNewDatabase("test.db");
     initializeNewTables("test.db");
     CSVParser t1=new CSVParser("/src/c01_project.database/test.db");
-    t1.parseCSVBasicICareTemplate("sample_data.csv");
+    //t1.parseCSVBasicICareTemplate("sample_data.csv");
+    UserQuery.addUser("Alice","123",1);
+    UserQuery.addUser("Bob","123",2);
+    UserQuery.addUser("Cody","123",3);
+    UserQuery.addUser("Jeff","123",4);
+    System.out.println(UserQuery.login("Alice","123"));
   }
 
   /**
@@ -35,7 +40,7 @@ public class databaseSetup {
     String url = "jdbc:sqlite:" + databasePath;
     try {Connection conn = DriverManager.getConnection(url);
       Statement stmt = conn.createStatement();
-      stmt.execute(sql);
+      output = stmt.executeQuery(sql);
     }
     catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -63,21 +68,7 @@ public class databaseSetup {
   
   public static void initializeNewTables(String databasePath) {
     String url = "jdbc:sqlite:" + databasePath;
-    String sqlUserTable = "Create Table Users(\r\n" + 
-    		"    username String,\r\n" + 
-    		"    password String,\r\n" + 
-    		"    type int\r\n" + 
-    		");\r\n" + 
-    		"\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Alice','123',1);\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Bob','123',2);\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Cody','123',3);\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Jeff','123',4);";
-    
-    String sqlUserDefaults = "Insert INTO Users (username,password,type) values ('Alice','123',1);\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Bob','123',2);\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Cody','123',3);\r\n" + 
-    		"Insert INTO Users (username,password,type) values ('Jeff','123',4);";
+    String sqlUserTable = "Create Table if not exists Users(username String,password String,type int);";
     
     String sqlBasicTable = "CREATE TABLE IF NOT EXISTS basic_data (\n"
             + "	id integer PRIMARY KEY,\n"
@@ -153,8 +144,6 @@ public class databaseSetup {
       System.out.println("created children table");
       stmt.execute(sqlUserTable);
       System.out.println("created user table");
-      stmt.execute(sqlUserDefaults);
-      System.out.println("added default users Alice Bob Cody Jeff");
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
