@@ -60,10 +60,25 @@ public class databaseSetup {
       System.out.println(e.getMessage());
     }
   }
-
+  
   public static void initializeNewTables(String databasePath) {
     String url = "jdbc:sqlite:" + databasePath;
-
+    String sqlUserTable = "Create Table Users(\r\n" + 
+    		"    username String,\r\n" + 
+    		"    password String,\r\n" + 
+    		"    type int\r\n" + 
+    		");\r\n" + 
+    		"\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Alice','123',1);\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Bob','123',2);\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Cody','123',3);\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Jeff','123',4);";
+    
+    String sqlUserDefaults = "Insert INTO Users (username,password,type) values ('Alice','123',1);\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Bob','123',2);\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Cody','123',3);\r\n" + 
+    		"Insert INTO Users (username,password,type) values ('Jeff','123',4);";
+    
     String sqlBasicTable = "CREATE TABLE IF NOT EXISTS basic_data (\n"
             + "	id integer PRIMARY KEY,\n"
             + "	name text NOT NULL,\n"
@@ -136,6 +151,10 @@ public class databaseSetup {
       System.out.println("created incomplete enrollment table");
       stmt.execute(sqlChildren);
       System.out.println("created children table");
+      stmt.execute(sqlUserTable);
+      System.out.println("created user table");
+      stmt.execute(sqlUserDefaults);
+      System.out.println("added default users Alice Bob Cody Jeff");
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
