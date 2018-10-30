@@ -15,9 +15,16 @@ public class databaseSetup {
           "client_exit"
   };
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException {
     createNewDatabase("test.db");
     initializeNewTables("test.db");
+    CSVParser t1=new CSVParser("/src/c01_project.database/test.db");
+    //t1.parseCSVBasicICareTemplate("sample_data.csv");
+    UserQuery.addUser("Alice","123",1);
+    UserQuery.addUser("Bob","123",2);
+    UserQuery.addUser("Cody","123",3);
+    UserQuery.addUser("Jeff","123",4);
+    System.out.println(UserQuery.login("Alice","123"));
   }
 
   /**
@@ -33,7 +40,7 @@ public class databaseSetup {
     String url = "jdbc:sqlite:" + databasePath;
     try {Connection conn = DriverManager.getConnection(url);
       Statement stmt = conn.createStatement();
-      stmt.execute(sql);
+      output = stmt.executeQuery(sql);
     }
     catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -58,10 +65,11 @@ public class databaseSetup {
       System.out.println(e.getMessage());
     }
   }
-
+  
   public static void initializeNewTables(String databasePath) {
     String url = "jdbc:sqlite:" + databasePath;
-
+    String sqlUserTable = "Create Table if not exists Users(username String,password String,type int);";
+    
     String sqlBasicTable = "CREATE TABLE IF NOT EXISTS basic_data (\n"
             + "	id integer PRIMARY KEY,\n"
             + "	name text NOT NULL,\n"
@@ -134,6 +142,8 @@ public class databaseSetup {
       System.out.println("created incomplete enrollment table");
       stmt.execute(sqlChildren);
       System.out.println("created children table");
+      stmt.execute(sqlUserTable);
+      System.out.println("created user table");
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }

@@ -21,11 +21,10 @@ public class CSVParser {
    * @param filename
    * @return the response given by the database
    */
-  public String parseCSVBasicICareTemplate(String filename) {
+  public String parseCSVBasicICareTemplate(String csvFile) {
 
     PendingDatabaseEntry entry = new PendingDatabaseEntry();
 
-    String csvFile = filename;
     BufferedReader br = null;
     String line = "";
     String csvSplitBy = ",";
@@ -70,5 +69,4 @@ public class CSVParser {
     }
     return entry.dumpIntoDatabase(databasePath);
   }
-
 }
