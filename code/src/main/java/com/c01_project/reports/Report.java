@@ -1,8 +1,11 @@
 package c01_project.reports;
 
+import c01_project.database.DatabaseQuery;
 import c01_project.gui.FileExistsException;
 import c01_project.gui.InvalidFileException;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -42,31 +45,53 @@ public class Report {
 		}
 	}
 	
-	/* updates the file with the data from the database
+	/* writes the requested data from a table in the database to the report file
 	*
-	* @throws FileNotFoundException if the original file is missing
+	* @param database the database file to gather the data from
+	* @param table the table name from the database
+	* @param columns of the table
+	* @throws FileNotFoundException if the report file is missing
 	*/
-	public void update() throws FileNotFoundException{
-		
+	public void writeReport(DatabaseQuery database, String table, String[] columns) throws FileNotFoundException{
+		File file = new File(location + name);
+		if (!(file.exists())) {
+		    throw new FileNotFoundException();
+		}
+		String command;
+		command = "SELECT * FROM " + table + ";";
+		ResultSet data = database.queryWithSQL(command);
+		writeToFile(data, columns);
+		try {
+		    data.close();
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	/* writes the given String into the report file, returns true if successful
 	*
 	* @throws FileNotFoundException if the original file is missing
 	*/
-	private boolean writeToFile(String data) throws FileNotFoundException{
+	private boolean writeToFile(ResultSet data, String[] columns) throws FileNotFoundException{
 		try {
 			File file = new File(location + name);
-			if (file.exists()) {
-				FileWriter writer = new FileWriter(file, false);
-				writer.write(data);
-				writer.close();
-			} else {
+			if (!file.exists()) {
 				throw new FileNotFoundException();
 			}
-		}
-		catch (IOException e) {
+			
+			FileWriter writer = new FileWriter(file, false);
+			while (data.next()) {
+			    for (String column : columns) {
+			        String entry = data.getString(column);
+			        writer.write( entry + ",");
+			    }
+                writer.write("\n");;
+			}
+            writer.close();
+		} catch (IOException e) {
 			return false;
+		} catch (SQLException sql) {
+		    sql.printStackTrace();
 		}
 		return true;
 	}
