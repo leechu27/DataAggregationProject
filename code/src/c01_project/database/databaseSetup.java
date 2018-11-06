@@ -5,7 +5,7 @@ import java.sql.*;
 public class databaseSetup {
 
   final public static String[] tableNames = {
-          "basic_data",
+          "ClientProfile",
           "information_and_orientation",
           "employment",
           "client_enrollment",
@@ -70,16 +70,25 @@ public class databaseSetup {
     String url = "jdbc:sqlite:" + databasePath;
     String sqlUserTable = "Create Table if not exists Users(username String,password String,type int);";
     
-    String sqlBasicTable = "CREATE TABLE IF NOT EXISTS basic_data (\n"
-            + "	id integer PRIMARY KEY,\n"
-            + "	name text NOT NULL,\n"
-            + "	unique_identifier text NOT NULL,\n"
-            + "	unique_identifier_value text NOT NULL,\n"
-            + "	date_of_birth TEXT NOT NULL,\n" // in the form YYYY-MM-DD
-            + "	start_date_of_service text,\n"  // in the form YYYY-MM-DD
-            + "	language_of_service text,\n"
-            + "	language_of_preference text\n"
-            + ");";
+    String sqlClientProfile = "CREATE TABLE if not exists Client_Profile (\r\n" + 
+    		"    processing_details        STRING,\r\n" + 
+    		"    client_validation_type_id STRING,\r\n" + 
+    		"    client_validation_id      STRING,\r\n" + 
+    		"    client_birth_dt           DATE,\r\n" + 
+    		"    phone_no                  INTEGER,\r\n" + 
+    		"    email_txt_ind             BOOLEAN,\r\n" + 
+    		"    email_txt                 STRING,\r\n" + 
+    		"    street_no                 INTEGER,\r\n" + 
+    		"    street_nme                STRING,\r\n" + 
+    		"    street_type_id            STRING,\r\n" + 
+    		"    street_direction_id       STRING,\r\n" + 
+    		"    unit_txt                  STRING,\r\n" + 
+    		"    city_txt                  STRING,\r\n" + 
+    		"    province_id               STRING,\r\n" + 
+    		"    postal_txt                STRING,\r\n" + 
+    		"    official_language_id      STRING,\r\n" + 
+    		"    consent_ind               BOOLEAN\r\n" + 
+    		");";
 
     String sqlOrientation = "CREATE TABLE IF NOT EXISTS information_and_orientation (\n"
             + "	id integer PRIMARY KEY,\n"
@@ -132,7 +141,7 @@ public class databaseSetup {
          Statement stmt = conn.createStatement()) {
       // create a new table
       System.out.println("connected to database");
-      stmt.execute(sqlBasicTable);
+      stmt.execute(sqlClientProfile);
       System.out.println("created complete basic table");
       stmt.execute(sqlOrientation);
       System.out.println("created incomplete orientation table");
