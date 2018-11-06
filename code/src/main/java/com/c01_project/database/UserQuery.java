@@ -11,6 +11,7 @@ public class UserQuery {
 		  if (rs.next()) {
 	          type=rs.getInt("type");
 		  }
+		  // 
 		  return type;
 	  }
 	  public static boolean addUser(String username, String password, int type) throws SQLException {
