@@ -3,16 +3,16 @@ package com.c01_project.database;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
 
 public class CsvParserTest {
 
-
+  static c01_project.database.CsvParser c;
 
 
   @BeforeAll
-  @DisplayName("reset the mock database")
-  public void databaseReset() {
-
+  public void setup() {
+    c = new c01_project.database.CsvParser("test.db");
   }
 
   @Test
