@@ -1,7 +1,6 @@
 package c01_project.database.selector;
 
 import java.sql.ResultSet;
-import java.util.Map;
 import c01_project.database.DatabaseQuery;;
 
 public class DatabaseSelector {
@@ -29,7 +28,7 @@ public class DatabaseSelector {
       } else {
         rawSQL += ", ";
       }
-      rawSQL += columns;
+      rawSQL += column;
     }
     rawSQL += "FROM " + table;
     ResultSet data = database.queryWithSQL(rawSQL);
