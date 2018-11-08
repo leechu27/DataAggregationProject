@@ -82,4 +82,32 @@ public class PendingDatabaseEntry {
     return ret;
   }
 
+  /**
+   * Instead of sending directly to the database, gives you the sql that would
+   * have been used.
+   * @param databaseName the filename of the SQLItedatabase
+   * @return
+   */
+  public String getAsSQL(String databaseName) {
+    DatabaseQuery dq = new DatabaseQuery(databaseName);
+    String ret = "";
+    // Go through each user, and add their data to the database
+    for (String userId : insertions.keySet()) {
+      for (List<String> data : insertions.get(userId)) {
+        String tableName = data.get(0);
+        String columnName = data.get(1);
+        String insertable = data.get(2);
+
+        String sql =
+                "UPDATE " + tableName + "\n" +
+                        "SET " + columnName + " = '" + insertable + "'\n" +
+                        "WHERE\n" +
+                        " id = " + userId.toString() + ";";
+
+        ret += sql + "\n";
+      }
+    }
+    return ret;
+  }
+
 }

@@ -21,7 +21,7 @@ public class CSVParser {
    * @param filename
    * @return the response given by the database
    */
-  public String parseCSVBasicICareTemplate(String csvFile) {
+  public PendingDatabaseEntry parseCSVBasicICareTemplate(String csvFile) {
 
     PendingDatabaseEntry entry = new PendingDatabaseEntry();
 
@@ -67,6 +67,6 @@ public class CSVParser {
         }
       }
     }
-    return entry.dumpIntoDatabase(databasePath);
+    return entry;
   }
 }
