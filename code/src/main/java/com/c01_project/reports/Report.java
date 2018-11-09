@@ -80,6 +80,9 @@ public class Report {
 			}
 			
 			FileWriter writer = new FileWriter(file, false);
+			for (String header : columns) {
+			  writer.write( header + ",");
+			}
 			while (data.next()) {
 			    for (String column : columns) {
 			        String entry = data.getString(column);
