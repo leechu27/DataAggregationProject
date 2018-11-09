@@ -1,5 +1,6 @@
 package c01_project.database;
 
+import com.c01_project.database.PendingDatabaseEntryInterface;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.List;
  * A class for adding new row(s) to the ICare database
  * Can either take in a csv ICare template or can be manually set with parameters
  */
-public class PendingDatabaseEntry {
+public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
 
   /*
    * Maps each user to all of the entries they need made

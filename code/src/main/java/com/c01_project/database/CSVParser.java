@@ -1,5 +1,7 @@
 package c01_project.database;
 
+import com.c01_project.database.PendingDatabaseEntryInterface;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,9 +13,16 @@ public class CSVParser {
   // Where the primary ID used to identify each user can be found in the csv
   private static final int PRIMARY_ID_COLUMN = 0;
   private String databasePath;
+  private PendingDatabaseEntryInterface pde;
 
   public CSVParser(String databasePath) {
     this.databasePath = databasePath;
+    this.pde = new c01_project.database.PendingDatabaseEntry();
+  }
+
+  public CSVParser(String databasePath, PendingDatabaseEntryInterface i) {
+    this.databasePath = databasePath;
+    this.pde = i;
   }
 
   /**
@@ -21,9 +30,9 @@ public class CSVParser {
    * @param filename
    * @return the response given by the database
    */
-  public PendingDatabaseEntry parseCSVBasicICareTemplate(String csvFile) {
+  public PendingDatabaseEntryInterface parseCSVBasicICareTemplate(String csvFile) {
 
-    PendingDatabaseEntry entry = new PendingDatabaseEntry();
+    PendingDatabaseEntryInterface entry = pde;
 
     BufferedReader br = null;
     String line = "";
