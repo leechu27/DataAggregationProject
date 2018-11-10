@@ -22,11 +22,11 @@ public class Report {
 	 * @throws InvalidFileException if file name is not of .csv format
 	 * @throws FileExistsException if file name is linked to an existing file
 	 */
-	public Report(String location, String name) throws c01_project.gui.InvalidFileException, c01_project.gui.FileExistsException {
+	public Report(String location, String name) throws InvalidFileException, FileExistsException {
 		if (name.matches(fileRegex)) {
 			
 			File file = new File(location + name);
-			if (file.exists()) {
+			if (file.exists() && !file.canWrite()) {
 				throw new FileExistsException();
 			}
 			try {
