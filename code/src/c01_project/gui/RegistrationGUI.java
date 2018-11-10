@@ -77,6 +77,8 @@ public class RegistrationGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				System.out.println("Username: " + textField.getText() + ";Password: " + textField_1.getText());
+				GUIManager.Login();
+				dispose();
 			}
 		});
 		btnRegister.setBounds(274, 272, 89, 23);
