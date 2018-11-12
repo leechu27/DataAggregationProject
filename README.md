@@ -16,6 +16,11 @@ Added project deliverable 3
 - Added Sprint Backlog for sprint 0 and sprint 1
 - Added Product Backlog for sprint 0 and sprint 1
 
+Added project deliverable 4
+- Added code from sprint 2 and sprint 3
+- Added Sprint Backlog for sprint 2 and sprint 3
+- Added Product Backlog for sprint 2 and sprint 3
+
 Running Instructions:
 This project uses maven to build. Simply run `mvn compile` to compile the code. If that does not work, you can also open the project with eclipse and run the DatabaseSetup file to create new database.
 
