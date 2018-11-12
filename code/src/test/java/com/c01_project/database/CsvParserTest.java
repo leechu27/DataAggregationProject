@@ -1,6 +1,7 @@
 package com.c01_project.database;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
@@ -11,13 +12,18 @@ public class CsvParserTest {
 
   private final String TEST_ROOT = "src/test/resources/testICareTemplates/";
   private static c01_project.database.CSVParser c;
+  private static MockPendingDatabaseEntry p;
 
 
   @BeforeAll
   public static void beforeAll() {
-    MockPendingDatabaseEntry p = new MockPendingDatabaseEntry();
-    p.clear();
+    p = new MockPendingDatabaseEntry();
     c = new c01_project.database.CSVParser("test.db", p);
+  }
+
+  @BeforeEach
+  public void reset() {
+    p.clear();
   }
 
   @Test
@@ -33,7 +39,12 @@ public class CsvParserTest {
   public void testICareTemplateOneLine() {
     com.c01_project.database.PendingDatabaseEntryInterface p =
             c.parseCSVBasicICareTemplate(TEST_ROOT + "normal_single_line.csv");
-    assertEquals("", p.getAsSQL("test.db"));
+    assertEquals("MALI basic_data name Mohammed Ali\n" +
+            "MALI basic_data unique_identifier_value 12345\n" +
+            "MALI basic_data date_of_birth 1995-02-31\n" +
+            "MALI basic_data start_date_of_service 2018-05-20\n" +
+            "MALI basic_data language_of_service English\n" +
+            "MALI basic_data language_of_preference English\n", p.getAsSQL("test.db"));
   }
 
   @Test
@@ -41,7 +52,18 @@ public class CsvParserTest {
   public void testICareTemplateMultipleLines() {
     com.c01_project.database.PendingDatabaseEntryInterface p =
             c.parseCSVBasicICareTemplate(TEST_ROOT + "normal_multiple_linens.csv");
-    assertEquals("", p.getAsSQL("test.db"));
+    assertEquals("MALI basic_data name Mohammed Ali\n" +
+            "MALI basic_data unique_identifier_value 12345\n" +
+            "MALI basic_data date_of_birth 1995-02-31\n" +
+            "MALI basic_data start_date_of_service 2018-05-20\n" +
+            "MALI basic_data language_of_service English\n" +
+            "MALI basic_data language_of_preference English\n" +
+            "TSUN basic_data name Terry Suns\n" +
+            "TSUN basic_data unique_identifier_value 12346\n" +
+            "TSUN basic_data date_of_birth 1990-05-04\n" +
+            "TSUN basic_data start_date_of_service 2018-03-21\n" +
+            "TSUN basic_data language_of_service English\n" +
+            "TSUN basic_data language_of_preference French\n", p.getAsSQL("test.db"));
   }
 
   @Test
@@ -62,7 +84,12 @@ public class CsvParserTest {
   public void testBrokenInfo() {
     com.c01_project.database.PendingDatabaseEntryInterface p =
             c.parseCSVBasicICareTemplate(TEST_ROOT + "missing_unique_identifier.csv");
-    assertEquals("", p.getAsSQL("test.db"));
+    assertEquals(" basic_data name Mohammed Ali\n" +
+            " basic_data unique_identifier_value 12345\n" +
+            " basic_data date_of_birth 1995-02-31\n" +
+            " basic_data start_date_of_service 2018-05-20\n" +
+            " basic_data language_of_service English\n" +
+            " basic_data language_of_preference English\n", p.getAsSQL("test.db"));
   }
 
   @Test
@@ -70,7 +97,18 @@ public class CsvParserTest {
   public void testBrokenInfoOnlyOnFirstLine() {
     com.c01_project.database.PendingDatabaseEntryInterface p =
             c.parseCSVBasicICareTemplate(TEST_ROOT + "missing_info_on_first_line_but_rest_fine.csv");
-    assertEquals("", p.getAsSQL("test.db"));
+    assertEquals(" basic_data name Mohammed Ali\n" +
+            " basic_data unique_identifier_value 12345\n" +
+            " basic_data date_of_birth 1995-02-31\n" +
+            " basic_data start_date_of_service 2018-05-20\n" +
+            " basic_data language_of_service English\n" +
+            " basic_data language_of_preference English\n" +
+            "TSUN basic_data name Terry Suns\n" +
+            "TSUN basic_data unique_identifier_value 12346\n" +
+            "TSUN basic_data date_of_birth 1990-05-04\n" +
+            "TSUN basic_data start_date_of_service 2018-03-21\n" +
+            "TSUN basic_data language_of_service English\n" +
+            "TSUN basic_data language_of_preference French\n", p.getAsSQL("test.db"));
   }
 
 

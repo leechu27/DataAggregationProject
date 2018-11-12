@@ -6,9 +6,7 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -23,13 +21,13 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
    * each insertion contains the table name, Column name,
    * and data to be inserted respectively in that order
    */
-  private HashMap<String, List<List<String>>> insertions;
+  private HashMap<String, ArrayList<List<String>>> insertions;
 
   /**
    * Create a row to add to the database from scratch
    */
   public PendingDatabaseEntry() {
-
+    insertions = new HashMap<>();
   }
 
 
@@ -41,9 +39,9 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
     //TODO check whether this data is even in the database in the first place
     //TODO get a safer method to do this, that checks the type of the data instead of assuming everything is raw text
     if (!insertions.containsKey(userId)) {
-      insertions.putIfAbsent(userId, Arrays.asList());
+      insertions.putIfAbsent(userId, new ArrayList<>());
     }
-    List insertion = Arrays.asList(tableName, columnName, data);
+    List<String> insertion = Arrays.asList(tableName, columnName, data);
     insertions.get(userId).add(insertion);
 
   }
@@ -90,7 +88,7 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
    * @return
    */
   public String getAsSQL(String databaseName) {
-    DatabaseQuery dq = new DatabaseQuery(databaseName);
+    c01_project.database.DatabaseQuery dq = new c01_project.database.DatabaseQuery(databaseName);
     String ret = "";
     // Go through each user, and add their data to the database
     for (String userId : insertions.keySet()) {
@@ -102,8 +100,7 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
         String sql =
                 "UPDATE " + tableName + "\n" +
                         "SET " + columnName + " = '" + insertable + "'\n" +
-                        "WHERE\n" +
-                        " id = " + userId.toString() + ";";
+                        "WHERE id = " + userId.toString() + ";";
 
         ret += sql + "\n";
       }
