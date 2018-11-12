@@ -10,18 +10,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import java.awt.Scrollbar;
-import java.awt.ScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.GridLayout;
+
 
 public class baseGui extends JFrame {
-
-	private JPanel contentPane;
 	private JTextField uniqueIdentifier;
 	private JTextField dateBirth;
 	private JTextField postalCode;
@@ -29,6 +34,7 @@ public class baseGui extends JFrame {
 	private JTextField refer;
 	private JTextField serviceRecieved;
 	private JTextField numMinutes;
+	private JTextField txtFilepath;
 
 	/**
 	 * Launch the application.
@@ -52,21 +58,74 @@ public class baseGui extends JFrame {
 	public baseGui() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 601, 434);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setBounds(0, 0, 500, 500);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNavigation = new JMenu("Navigation");
+		menuBar.add(mnNavigation);
+		
+		JMenuItem mntmHome = new JMenuItem("Home");
+		mnNavigation.add(mntmHome);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mnNavigation.add(mntmExit);
+		
+		// Grid layout of the buttons
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] {30, 30, 0, 0, 30, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[] {10, 30, 30, 30, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
+		
+
+		
+		
+		
+
+		// JPanel clientProfilePanel = infoOrient();
+		// wrapping our client Profile Panel in a scroll pane
+	    // JScrollPane scrollPane = new JScrollPane(clientProfilePanel);
 	    
-		JPanel clientProfilePanel = infoOrient();
-	    JScrollPane scrollPane = new JScrollPane(clientProfilePanel);
-	    
-	    
-	    contentPane.add(scrollPane, BorderLayout.CENTER);
+	    // contentPane.add(scrollPane, BorderLayout.CENTER);	
 		
 	    //contentPane.add(clientProfilePanel, BorderLayout.NORTH);
 		
 		
+	}
+	public JPanel uploadPage() {
+		JButton btnBrowse = new JButton("Browse");
+		GridBagConstraints gbc_btnBrowse = new GridBagConstraints();
+		gbc_btnBrowse.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBrowse.gridx = 3;
+		gbc_btnBrowse.gridy = 3;
+		getContentPane().add(btnBrowse, gbc_btnBrowse);
+		
+		txtFilepath = new JTextField();
+		GridBagConstraints gbc_txtFilepath = new GridBagConstraints();
+		gbc_txtFilepath.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFilepath.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFilepath.gridx = 4;
+		gbc_txtFilepath.gridy = 3;
+		getContentPane().add(txtFilepath, gbc_txtFilepath);
+		txtFilepath.setColumns(10);
+		
+		JButton btnUpload = new JButton("Upload");
+		GridBagConstraints gbc_btnUpload = new GridBagConstraints();
+		gbc_btnUpload.insets = new Insets(0, 0, 5, 5);
+		gbc_btnUpload.gridx = 5;
+		gbc_btnUpload.gridy = 3;
+		getContentPane().add(btnUpload, gbc_btnUpload);
+		
+		JButton btnCancel_1 = new JButton("Cancel");
+		GridBagConstraints gbc_btnCancel_1 = new GridBagConstraints();
+		gbc_btnCancel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancel_1.gridx = 5;
+		gbc_btnCancel_1.gridy = 4;
+		getContentPane().add(btnCancel_1, gbc_btnCancel_1);
+		return null;
 	}
 	
 	// initiates our client profile page
@@ -199,6 +258,7 @@ public class baseGui extends JFrame {
 		clientProfile.setLayout(gl_clientProfile);
 		return clientProfile;
 	}
+	
 	public JPanel infoOrient(){
 		JPanel infoOrient = new JPanel();
 		// adding all the fields for client profile page
@@ -285,92 +345,302 @@ public class baseGui extends JFrame {
 		JCheckBox chckbxOverviewOfCanada = new JCheckBox("Overview of Canada");
 		
 		JCheckBox chckbxOverviewOfCanada_1 = new JCheckBox("Overview of Canada Referrals");
+		
+		JLabel lblMaterialsCovered = new JLabel("Materials Covered:");
+		
+		JCheckBox chckbxSourcesOfInformation = new JCheckBox("Sources of Information");
+		
+		JCheckBox chckbxSourcesOfInformation_1 = new JCheckBox("Sources of Information Referrals");
+		
+		JCheckBox chckbxRightsAndFreedoms = new JCheckBox("Rights and Freedoms");
+		
+		JCheckBox chckbxRightsAndFreedoms_1 = new JCheckBox("Rights and Freedoms Referrals");
+		
+		JCheckBox chckbxCanadianLawAnd = new JCheckBox("Canadian Law and Justice");
+		
+		JCheckBox chckbxCanadianLawAnd_1 = new JCheckBox("Canadian Law and Justice Referrals");
+		
+		JCheckBox chckbxImportantDocuments = new JCheckBox("Important Documents");
+		
+		JCheckBox chckbxEducation = new JCheckBox("Education");
+		
+		JCheckBox chckbxEducationReferrals = new JCheckBox("Education Referrals");
+		
+		JCheckBox chckbxHousing = new JCheckBox("Housing");
+		
+		JCheckBox chckbxHousingReferrals = new JCheckBox("Housing Referrals");
+		
+		JCheckBox chckbxHealth = new JCheckBox("Health");
+		
+		JCheckBox chckbxHealthReferrals = new JCheckBox("Health Referrals");
+		
+		JCheckBox chckbxMoneyAndFinances = new JCheckBox("Money and Finances");
+		
+		JCheckBox chckbxMoneyAndFinances_1 = new JCheckBox("Money and Finances Referrals");
+		
+		JCheckBox chckbxTransportation = new JCheckBox("Transportation");
+		
+		JCheckBox chckbxTransportationReferrals = new JCheckBox("Transportation Referrals");
+		
+		JCheckBox chckbxCommunicationsAndMedia = new JCheckBox("Communications and Media");
+		
+		JCheckBox chckbxCommunicationsAndMedia_1 = new JCheckBox("Communications and Media Referals");
+		
+		JCheckBox chckbxCommunityEngagement = new JCheckBox("Community Engagement");
+		
+		JCheckBox chckbxCommunityEngagementReferrals = new JCheckBox("Community Engagement Referrals");
+		
+		JCheckBox chckbxBecomingACanadian = new JCheckBox("Becoming a Canadian Citizen");
+		
+		JCheckBox chckbxBecomingACanadian_1 = new JCheckBox("Becoming a Canadian Citizen Referrals");
+		
+		JCheckBox chckbxInterpersonalConflict = new JCheckBox("Interpersonal Conflict");
+		
+		JCheckBox chckbxInterpersonalConflictReferrals = new JCheckBox("Interpersonal Conflict Referrals");
+		
+		JLabel lblWasEssentialSkills = new JLabel("Was Essential Skills and Aptitude Training Received as Part of this Service?");
+		
+		String[] yesOrNo = {"Yes", "No"};
+		JComboBox comboBoxEssentialSkills = new JComboBox(yesOrNo);
+		
+		JCheckBox chckbxComputerSkills = new JCheckBox("Computer skills");
+		
+		JCheckBox chckbxDocumentUse = new JCheckBox("Document Use");
+		
+		JCheckBox chckbxInterpersonalSkillsAnd = new JCheckBox("Interpersonal Skills and Workplace Culture");
+		
+		JCheckBox chckbxLeadershipTraining = new JCheckBox("Leadership Training");
+		
+		JCheckBox chckbxNumeracy = new JCheckBox("Numeracy");
+		
+		JLabel lblWasLifeSkills = new JLabel("Was Life Skills or Responsibilities of Citizenship Information Received as Part of this Service?");
+		
+		JComboBox comboBoxLifeSkills = new JComboBox(yesOrNo);
+		
+		JCheckBox chckbxLifeSkills = new JCheckBox("Life Skills");
+		
+		JCheckBox chckbxRightsAndResponsibilities = new JCheckBox("Rights and Responsibilities of Citizenship (based on discover Canada)");
+		
+		JLabel lblSupportServicesReceived = new JLabel("Support Services Received");
+		
+		JComboBox comboBoxSupportServices = new JComboBox(yesOrNo);
+		
+		JLabel lblCareForNewcomer = new JLabel("Care for Newcomer Children?");
+		
+		// Contains the dynamic buttons and fields for child options
+		JPanel childPanel = new JPanel();
+		GridBagLayout gbl_childPanel = new GridBagLayout();
+		gbl_childPanel.columnWidths = new int[]{0};
+		gbl_childPanel.rowHeights = new int[]{0};
+		gbl_childPanel.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_childPanel.rowWeights = new double[]{Double.MIN_VALUE};
+		childPanel.setLayout(gbl_childPanel);
+		
+		Integer[] numChildOptions = {0,1,2,3,4,5};
+		
+		JComboBox comboBoxNumChildren = new JComboBox(numChildOptions);
+		
+		comboBoxNumChildren.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int numbChildSelected = comboBoxNumChildren.getSelectedIndex();
+				// hooking up combo box to dynamically generate labels and fields for child support
+				JLabel[][] childLables = createChildFields(numbChildSelected);
+				
+				childPanel.removeAll();
+				childPanel.repaint();
+
+				for (int i = 0; i<3; i++) {
+					for (int j = 0; j<numbChildSelected; j++) {
+						childPanel.add(childLables[i][j]);
+					}
+				}
+			}
+		});
+		
 		GroupLayout gl_inforOrient = new GroupLayout(infoOrient);
 		gl_inforOrient.setHorizontalGroup(
-			gl_inforOrient.createParallelGroup(Alignment.TRAILING)
+			gl_inforOrient.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_inforOrient.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_inforOrient.createSequentialGroup()
-							.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPostalCodeWhere)
-								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(lblReferred)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(refer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addGap(7)
-							.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(lblServicesReceived)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(serviceRecieved, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(lblLengthOfService)
-									.addGap(5)
-									.addComponent(numMinutes, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(postalCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblTypeOfInstitutionorganization)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(organization, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-						.addComponent(lblClientProfile, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+							.addComponent(chckbxComputerSkills)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(chckbxDocumentUse)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(chckbxInterpersonalSkillsAnd))
 						.addGroup(gl_inforOrient.createSequentialGroup()
-							.addComponent(lblUniqueIdentifier)
+							.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_inforOrient.createSequentialGroup()
+									.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblPostalCodeWhere)
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(lblReferred)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(refer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addGap(7)
+									.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(lblServicesReceived)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(serviceRecieved, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(lblLengthOfService)
+											.addGap(5)
+											.addComponent(numMinutes, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(postalCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(lblTypeOfInstitutionorganization)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(organization, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(lblClientProfile, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_inforOrient.createSequentialGroup()
+									.addComponent(lblUniqueIdentifier)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(uniqueIdentifier, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblDateOfBirth)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(dateBirth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_inforOrient.createSequentialGroup()
+									.addComponent(lblTargetGroup)
+									.addGap(23)
+									.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxEthnicculturallinguisticGroup)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxDeaf))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxChildren)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxYouth)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxSeniors)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxGenderspecific)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxRefugees))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxBlind)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxLgbtq)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxFam)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxOtherImpairments))
+										.addComponent(chckbxClientsWithInternational)
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxClientsWithInternational_1)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxOfficialLanguageMinorities))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxOverviewOfCanada)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxOverviewOfCanada_1))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
+												.addComponent(chckbxSourcesOfInformation)
+												.addComponent(chckbxRightsAndFreedoms))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
+												.addComponent(chckbxRightsAndFreedoms_1)
+												.addGroup(gl_inforOrient.createSequentialGroup()
+													.addComponent(chckbxSourcesOfInformation_1)
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(chckbxImportantDocuments))))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxCanadianLawAnd)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxCanadianLawAnd_1))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxEducation)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxEducationReferrals))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxHousing)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxHousingReferrals))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxHealth)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxHealthReferrals))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxMoneyAndFinances)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxMoneyAndFinances_1))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxTransportation)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxTransportationReferrals))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxCommunicationsAndMedia)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxCommunicationsAndMedia_1))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxCommunityEngagement)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxCommunityEngagementReferrals))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxBecomingACanadian)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxBecomingACanadian_1))
+										.addGroup(gl_inforOrient.createSequentialGroup()
+											.addComponent(chckbxInterpersonalConflict)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(chckbxInterpersonalConflictReferrals)))))
+							.addGap(272))
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(lblMaterialsCovered, GroupLayout.DEFAULT_SIZE, 1599, Short.MAX_VALUE)
+							.addGap(476))
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(lblWasEssentialSkills)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(uniqueIdentifier, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblDateOfBirth)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateBirth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxEssentialSkills, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(1672, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(btnSubmit)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCancel))
+							.addComponent(btnCancel)
+							.addContainerGap(1939, Short.MAX_VALUE))
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(lblNewLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(langService, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(1911, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
 							.addComponent(lblLanguagePreference)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(langPref, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(langPref, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(1906, Short.MAX_VALUE))
 						.addGroup(gl_inforOrient.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(langService, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_inforOrient.createSequentialGroup()
-							.addComponent(lblTargetGroup)
-							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_inforOrient.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(chckbxEthnicculturallinguisticGroup)
+									.addComponent(chckbxLeadershipTraining)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxDeaf))
-								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(chckbxChildren)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxYouth)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxSeniors)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxGenderspecific)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxRefugees))
-								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(chckbxBlind)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxLgbtq)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxFam)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxOtherImpairments))
-								.addComponent(chckbxClientsWithInternational)
-								.addGroup(gl_inforOrient.createSequentialGroup()
-									.addComponent(chckbxClientsWithInternational_1)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(chckbxOfficialLanguageMinorities))))
-						.addGroup(gl_inforOrient.createSequentialGroup()
-							.addComponent(chckbxOverviewOfCanada)
+									.addComponent(chckbxNumeracy))
+								.addComponent(lblWasLifeSkills))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxOverviewOfCanada_1)))
-					.addContainerGap(30, Short.MAX_VALUE))
+							.addComponent(comboBoxLifeSkills, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(1589, Short.MAX_VALUE))
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(lblSupportServicesReceived)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBoxSupportServices, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblCareForNewcomer)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBoxNumChildren, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(1708))
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(chckbxLifeSkills)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(chckbxRightsAndResponsibilities)
+							.addContainerGap())
+						.addGroup(gl_inforOrient.createSequentialGroup()
+							.addComponent(childPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(2065, Short.MAX_VALUE))))
 		);
 		gl_inforOrient.setVerticalGroup(
 			gl_inforOrient.createParallelGroup(Alignment.LEADING)
@@ -420,25 +690,128 @@ public class baseGui extends JFrame {
 					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chckbxClientsWithInternational_1)
 						.addComponent(chckbxOfficialLanguageMinorities))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(4)
 					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblMaterialsCovered)
 						.addComponent(chckbxOverviewOfCanada)
 						.addComponent(chckbxOverviewOfCanada_1))
-					.addGap(16)
-					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(langService, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxSourcesOfInformation_1)
+						.addComponent(chckbxSourcesOfInformation)
+						.addComponent(chckbxImportantDocuments))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxRightsAndFreedoms_1)
+						.addComponent(chckbxRightsAndFreedoms))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxCanadianLawAnd)
+						.addComponent(chckbxCanadianLawAnd_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxEducation)
+						.addComponent(chckbxEducationReferrals))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxHousing)
+						.addComponent(chckbxHousingReferrals))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxHealth)
+						.addComponent(chckbxHealthReferrals))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxMoneyAndFinances)
+						.addComponent(chckbxMoneyAndFinances_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxTransportation)
+						.addComponent(chckbxTransportationReferrals))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxCommunicationsAndMedia)
+						.addComponent(chckbxCommunicationsAndMedia_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxCommunityEngagement)
+						.addComponent(chckbxCommunityEngagementReferrals))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxBecomingACanadian)
+						.addComponent(chckbxBecomingACanadian_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxInterpersonalConflict)
+						.addComponent(chckbxInterpersonalConflictReferrals))
+					.addGap(17)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWasEssentialSkills)
+						.addComponent(comboBoxEssentialSkills, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxComputerSkills)
+						.addComponent(chckbxDocumentUse)
+						.addComponent(chckbxInterpersonalSkillsAnd))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxLeadershipTraining)
+						.addComponent(chckbxNumeracy))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWasLifeSkills)
+						.addComponent(comboBoxLifeSkills, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxLifeSkills)
+						.addComponent(chckbxRightsAndResponsibilities))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSupportServicesReceived)
+						.addComponent(comboBoxSupportServices, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCareForNewcomer)
+						.addComponent(comboBoxNumChildren, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(childPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
 					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLanguagePreference)
 						.addComponent(langPref, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(langService, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_inforOrient.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSubmit)
 						.addComponent(btnCancel))
 					.addContainerGap())
 		);
+		
 		infoOrient.setLayout(gl_inforOrient);
 		return infoOrient;
 	}
+	
+	private JLabel[][] createChildFields(int numChild) {
+		JLabel[][] result = new JLabel[3][];
+		// if we have children
+		if(!(numChild == 0)) {
+			JLabel childLabel[] = new JLabel[numChild];
+			JLabel ageLabel[] = new JLabel[numChild];
+			JLabel careLabel[] = new JLabel[numChild];
+		
+			for (int i = 0; i<numChild;i++) {
+				childLabel[i] = new JLabel("Child " + i);
+				ageLabel[i] = new JLabel("Child " + i + " Age");
+				careLabel[i] = new JLabel("Child " + i + " Care");
+			}
+			result[0] = childLabel;
+			result[1] = ageLabel;
+			result[2] = careLabel;
+			
+		}
+		return result;
+	
+	}
 }
+
