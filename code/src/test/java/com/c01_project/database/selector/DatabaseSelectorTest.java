@@ -62,24 +62,57 @@ public class DatabaseSelectorTest {
   @Test
   @DisplayName("select two columns")
   public void testTwoColumns() {
-
+    String[] columns = {"name", "date_of_birth"};
+    List<List<String>> expected = new ArrayList<List<String>>();
+    List<List<String>> outcome = new ArrayList<List<String>>();
+    List<String> expectedRow1 = new ArrayList<String>();
+    List<String> expectedRow2 = new ArrayList<String>();
+    List<String> outputRow = new ArrayList<String>();
+    expectedRow1.add("Mohammed Ali");
+    expectedRow1.add("1995-02-31");
+    expectedRow2.add("Terry Suns");
+    expectedRow2.add("1990-05-04");
+    expected.add(expectedRow1);
+    expected.add(expectedRow2);
+    try {
+      ResultSet result = DatabaseSelector.selectColumnms(query, "basic_data", columns);
+      while (result.next()) {
+        outputRow.add(result.getString("name"));
+        outputRow.add(result.getString("date_of_birth"));
+        outcome.add(outputRow);
+        outputRow.clear();
+      }
+      result.close();
+      assertEquals(expected, outcome);
+    } catch (SQLException sql) {
+      fail("Unexpected SQLException has been thrown");
+    } catch (DatabaseNullException dne) {
+      fail("Database is null");
+    } catch (NullColumnsException nce) {
+      fail("Columns is null");
+    } catch (NullTableException nte) {
+      fail("table is null");
+    }
   }
   
-  @Test
+ /* @Test
   @DisplayName("select * from a table")
   public void testAllColumns() {
 
-  }
+  }*/
   
+  /*
   @Test
   @DisplayName("select no columns")
   public void testNoColumns() {
 
   }
-  
+  */
+  /*
   @Test
   @DisplayName("select an incorrect column")
   public void test() {
 
   }
+  */
 }
