@@ -83,6 +83,7 @@ public class LoginGUI extends JFrame {
 				// textField_1.getText() for the password field
 				// I think we want to check if the data base has this account
 				System.out.println("Login clicked! User name is: " + textField.getText() + " password given is: " + textField_1.getText());
+				c01_project.gui.OrganizationGUI.main(null);
 			}
 		});
 		btnLogin.addActionListener(new ActionListener() {
