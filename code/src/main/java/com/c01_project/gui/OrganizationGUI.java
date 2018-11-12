@@ -1,11 +1,14 @@
 package c01_project.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
-
+import javax.swing.JFileChooser;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -56,6 +59,17 @@ public class OrganizationGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Upload Template Button pressed");
+				// Gets the file from user 
+				JFileChooser chooser = new JFileChooser();
+			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "CSV Files", "csv");
+			    chooser.setFileFilter(filter);
+			    int returnVal = chooser.showOpenDialog(null);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			       System.out.println("You chose to open this file: " +
+			            chooser.getSelectedFile().getName());
+			    }
+				
 			}
 		});
 		btnNewButton.setBounds(75, 184, 142, 23);
