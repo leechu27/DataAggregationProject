@@ -96,7 +96,7 @@ public class LoginGUI extends JFrame {
 		btnRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("User has pressed Register button!");
+				c01_project.gui.RegistrationGUI.main(null);
 			}
 		});
 		btnRegister.setBounds(375, 304, 89, 23);

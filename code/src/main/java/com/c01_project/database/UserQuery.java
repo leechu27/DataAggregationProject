@@ -1,4 +1,4 @@
-package c01_project.database;
+package com.c01_project.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ public class UserQuery {
 	  }
 	  public static boolean addUser(String username, String password, int type) throws SQLException {
 		  String sql="select * from Users where username = '"+username+"';";
-		  ResultSet rs=databaseSetup.runRawSQL(sql,"test.db");
+		  ResultSet rs= databaseSetup.runRawSQL(sql,"test.db");
 		  int rownum=0;
 		  while(rs.next()) {
 			  rownum+=1;

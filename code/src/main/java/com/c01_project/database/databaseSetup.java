@@ -1,4 +1,6 @@
-package c01_project.database;
+package com.c01_project.database;
+
+import com.c01_project.database.*;
 
 import java.sql.*;
 
@@ -18,7 +20,7 @@ public class databaseSetup {
   public static void main(String[] args) throws SQLException {
     createNewDatabase("test.db");
     initializeNewTables("test.db");
-    CSVParser t1=new CSVParser("/src/c01_project.database/test.db");
+    c01_project.database.CSVParser t1=new c01_project.database.CSVParser("/src/c01_project.database/test.db");
     //t1.parseCSVBasicICareTemplate("sample_data.csv");
     UserQuery.addUser("Alice","123",1);
     UserQuery.addUser("Bob","123",2);
