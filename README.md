@@ -20,14 +20,17 @@ Added project deliverable 4
 - Added code from sprint 2 and sprint 3
 - Added Sprint Backlog for sprint 2 and sprint 3
 - Added Product Backlog for sprint 2 and sprint 3
+- Added Code Review Summary
 
 Running Instructions:
-This project uses maven to build. Simply run `mvn compile` to compile the code. If that does not work, you can also open the project with eclipse and run the DatabaseSetup file to create new database.
+
+Command Line Instructions (Unix):
+This project uses maven to build. First, cd into `code/`. Then run `mvn compile` to compile the code, or `mvn test` to run test cases. Once the project has built succesfully, all of the compiled files should be inside `code/target`.
 
 IntelliJ Running Instructions:
 - Clone the repository into your preferred folder
 - In intelliJ, go to the File menu -> Open
 - Navigate to the code folder and pick the pom.xml file, the project should now load up using the maven configuration
 - Under project files, you should now see all of the files associated with the project
-- Right click on the name of a class or test and then choose run ... to run it
+- Right click on the name of a class or test and then choose run `CLASSNAME.main()` to run it
 
