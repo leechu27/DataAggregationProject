@@ -30,7 +30,7 @@ public class DatabaseSelector {
       }
       rawSQL += column;
     }
-    rawSQL += "FROM " + table;
+    rawSQL += " FROM " + table;
     ResultSet data = database.queryWithSQL(rawSQL);
     return data;
     

@@ -17,19 +17,11 @@ import c01_project.database.databaseSetup;
 
 public class DatabaseSelectorTest {
   
-  private final static String TEST_ROOT = "src/test/resources/testICareTemplates/";
-  private final static String DATABASE_PATH = "test.db";
-  private static CSVParser parser;
+  private final static String DATABASE_PATH = "src/test/resources/testDatabases/test.db";
   private static DatabaseQuery query;
 
   @BeforeAll
   public static void beforeAll() {
-    databaseSetup.createNewDatabase(DATABASE_PATH);
-    databaseSetup.initializeNewTables(DATABASE_PATH);
-    parser = new CSVParser(DATABASE_PATH);
-    com.c01_project.database.PendingDatabaseEntryInterface entry = parser.parseCSVBasicICareTemplate(TEST_ROOT + "normal_multiple_linens.csv");
-    entry.dumpIntoDatabase(DATABASE_PATH);
-    entry.clear();
     query = new DatabaseQuery(DATABASE_PATH);
   }
 
@@ -67,7 +59,8 @@ public class DatabaseSelectorTest {
     List<List<String>> outcome = new ArrayList<List<String>>();
     List<String> expectedRow1 = new ArrayList<String>();
     List<String> expectedRow2 = new ArrayList<String>();
-    List<String> outputRow = new ArrayList<String>();
+    List<String> outputRow1 = new ArrayList<String>();
+    List<String> outputRow2 = new ArrayList<String>();
     expectedRow1.add("Mohammed Ali");
     expectedRow1.add("1995-02-31");
     expectedRow2.add("Terry Suns");
@@ -76,11 +69,22 @@ public class DatabaseSelectorTest {
     expected.add(expectedRow2);
     try {
       ResultSet result = DatabaseSelector.selectColumnms(query, "basic_data", columns);
+      if (result == null) {
+        fail("no resultset found");
+      }
+      int i = 0;
       while (result.next()) {
-        outputRow.add(result.getString("name"));
-        outputRow.add(result.getString("date_of_birth"));
-        outcome.add(outputRow);
-        outputRow.clear();
+        if (i == 0) {
+          outputRow1.add(result.getString("name"));
+          outputRow1.add(result.getString("date_of_birth"));
+          outcome.add(outputRow1);
+          i++;
+        } else if (i == 1) {
+          outputRow2.add(result.getString("name"));
+          outputRow2.add(result.getString("date_of_birth"));
+          outcome.add(outputRow2);
+          i++;
+        }
       }
       result.close();
       assertEquals(expected, outcome);
