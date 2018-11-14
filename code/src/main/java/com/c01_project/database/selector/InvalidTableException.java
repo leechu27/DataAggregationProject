@@ -1,9 +1,9 @@
 package c01_project.database.selector;
 
 @SuppressWarnings("serial")
-public class NullTableException extends Exception {
+public class InvalidTableException extends Exception {
 
-  public NullTableException() {
+  public InvalidTableException() {
     super("Table not found");
   }  
 }
