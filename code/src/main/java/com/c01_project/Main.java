@@ -11,8 +11,9 @@ public class Main {
       databaseSetup.main(args);
     } catch(SQLException e) {
       e.printStackTrace();
+    } finally {
+      c01_project.gui.LoginGUI.main(args);
     }
-    c01_project.gui.LoginGUI.main(args);
   }
 
 }
