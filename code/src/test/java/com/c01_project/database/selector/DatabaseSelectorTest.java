@@ -43,7 +43,7 @@ public class DatabaseSelectorTest {
 	  result.close();
 	  assertEquals(expected, outcome);
 	} catch (SQLException sql) {
-	  fail("Unexpected SQLException has been thrown");
+	  fail(sql.getMessage());
 	} catch (DatabaseNullException dne) {
 	  fail("Database is null");
 	} catch (InvalidColumnsException nce) {
@@ -93,7 +93,7 @@ public class DatabaseSelectorTest {
       result.close();
       assertEquals(expected, outcome);
     } catch (SQLException sql) {
-      fail("Unexpected SQLException has been thrown");
+      fail(sql.getMessage());
     } catch (DatabaseNullException dne) {
       fail("Database is null");
     } catch (InvalidColumnsException nce) {
@@ -123,8 +123,7 @@ public class DatabaseSelectorTest {
   @DisplayName("select * from a table")
   public void testAllColumns() {
     List<String> columns = new ArrayList<String>();
-    columns.add("name");
-    columns.add("date_of_birth");
+    columns.add("*");
     List<List<String>> expected = new ArrayList<List<String>>();
     List<List<String>> outcome = new ArrayList<List<String>>();
     List<String> expectedRow1 = new ArrayList<String>();
@@ -157,23 +156,23 @@ public class DatabaseSelectorTest {
       int i = 0;
       while (result.next()) {
         if (i == 0) {
-          outputRow1.add(result.getString("id"));
+          outputRow1.add(Integer.toString(result.getInt("id")));
           outputRow1.add(result.getString("name"));
           outputRow1.add(result.getString("unique_identifier"));
           outputRow1.add(result.getString("unique_identifier_value"));
           outputRow1.add(result.getString("date_of_birth"));
-          outputRow1.add(result.getString("start_daste_of_service"));
+          outputRow1.add(result.getString("start_date_of_service"));
           outputRow1.add(result.getString("language_of_service"));
           outputRow1.add(result.getString("language_of_preference"));
           outcome.add(outputRow1);
           i++;
         } else if (i == 1) {
-          outputRow2.add(result.getString("id"));
+          outputRow2.add(Integer.toString(result.getInt("id")));
           outputRow2.add(result.getString("name"));
           outputRow2.add(result.getString("unique_identifier"));
           outputRow2.add(result.getString("unique_identifier_value"));
           outputRow2.add(result.getString("date_of_birth"));
-          outputRow2.add(result.getString("start_daste_of_service"));
+          outputRow2.add(result.getString("start_date_of_service"));
           outputRow2.add(result.getString("language_of_service"));
           outputRow2.add(result.getString("language_of_preference"));
           outcome.add(outputRow2);
@@ -183,7 +182,7 @@ public class DatabaseSelectorTest {
       result.close();
       assertEquals(expected, outcome);
     } catch (SQLException sql) {
-      fail("Unexpected SQLException has been thrown");
+      fail(sql.getMessage());
     } catch (DatabaseNullException dne) {
       fail("Database is null");
     } catch (InvalidColumnsException nce) {

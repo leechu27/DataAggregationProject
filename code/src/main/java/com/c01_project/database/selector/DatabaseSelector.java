@@ -17,7 +17,7 @@ public class DatabaseSelector {
   public static ResultSet selectColumns(DatabaseQuery database, String table, List<String> columns) throws DatabaseNullException, InvalidTableException, InvalidColumnsException {
     if (database == null) {
       throw new DatabaseNullException();
-    } else if (table == null || !Arrays.asList(databaseSetup.tableNames).contains(table)) {
+    } else if (table == null) {
       throw new InvalidTableException();
     } else if (columns == null || columns.size() == 0) {
       throw new InvalidColumnsException();
