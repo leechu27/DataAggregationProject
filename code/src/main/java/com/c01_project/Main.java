@@ -6,8 +6,12 @@ import java.sql.SQLException;
 
 public class Main {
 
-  public static void main(String[] args) throws SQLException {
-    databaseSetup.main(args);
+  public static void main(String[] args) {
+    try {
+      databaseSetup.main(args);
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
     c01_project.gui.LoginGUI.main(args);
   }
 
