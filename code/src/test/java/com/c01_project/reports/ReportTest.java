@@ -1,6 +1,5 @@
 package c01_project.reports;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -17,27 +16,19 @@ import c01_project.gui.InvalidFileException;
 
 public class ReportTest {
 
-  private final static String TEST_ROOT ="src/test/resources/testICareTemplates/";
-  private final static String DATABASE_PATH = "testReport.db";
+  private final static String DATABASE_PATH = "src/test/resources/testDatabases/test.db";
   private static Report report;
-  private static CSVParser parser;
   private static DatabaseQuery query;
 
   @BeforeAll
   public static void beforeAll() throws InvalidFileException, FileExistsException {
     try {
-      report = new Report("", "testReport.csv");
-      databaseSetup.createNewDatabase(DATABASE_PATH);
-      databaseSetup.initializeNewTables(DATABASE_PATH);
-      parser = new CSVParser(DATABASE_PATH);
-      com.c01_project.database.PendingDatabaseEntryInterface entry = parser.parseCSVBasicICareTemplate(TEST_ROOT + "normal_multiple_linens.csv");
-      entry.dumpIntoDatabase(DATABASE_PATH);
-      entry.clear();
-      query = new DatabaseQuery("test.db");
+      report = new Report("src/test/resources/testReports/", "testReport.csv");
+      query = new DatabaseQuery(DATABASE_PATH);
     } catch (InvalidFileException i) {
-      System.out.println(i);
+      System.out.println(i.getMessage());
     } catch (FileExistsException f) {
-      System.out.println(f);
+      System.out.println(f.getMessage());
     }
   }
 
@@ -46,16 +37,16 @@ public class ReportTest {
   public void testOneColumn() {
     String[] columns = {"name"};
     try {
-    report.writeReport(query, "basic_data", columns);
-    File expected = new File("src/test/resources/testReports/single_column.csv");
-    File result = new File("testReport.csv");
-    assertEquals(expected, result);
-    } catch (Exception e) {
-    	fail("Something unexpected happened");
+      report.writeReport(query, "basic_data", columns);
+      File expected = new File("src/test/resources/testReports/single_column.csv");
+      File result = new File("src/test/resources/testReports/testReport.csv");
+      assertEquals(expected, result);
+    } catch (FileNotFoundException fne) {
+      fail(fne.getMessage());
     }
   }
 
-  @Test
+ /* @Test
   @DisplayName("multiple columns")
   public void testMultipleColumns() {
 
@@ -71,5 +62,5 @@ public class ReportTest {
   @DisplayName("")
   public void test() {
 
-  }
+  }*/
 }
