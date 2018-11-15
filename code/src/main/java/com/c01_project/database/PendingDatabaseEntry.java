@@ -1,11 +1,6 @@
 package c01_project.database;
 
 import com.c01_project.database.PendingDatabaseEntryInterface;
-import javafx.util.Pair;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
@@ -60,7 +55,7 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
    *  method to dump all of the data into the main database
    */
   public String dumpIntoDatabase(String databaseName) {
-    DatabaseQuery dq = new DatabaseQuery(databaseName);
+    c01_project.database.DatabaseQuery dq = new c01_project.database.DatabaseQuery(databaseName);
     String ret = "";
     // Go through each user, and add their data to the database
     for (String userId : insertions.keySet()) {

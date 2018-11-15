@@ -1,5 +1,7 @@
 package c01_project.gui;
 
+import c01_project.database.CSVParser;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.EventQueue;
@@ -20,6 +22,9 @@ import java.awt.event.MouseEvent;
 public class OrganizationGUI extends JFrame {
 
 	private JPanel contentPane;
+
+	// Change this to the name of the main database later
+	private String databaseName = "test.db";
 
 	/**
 	 * Launch the application.
@@ -68,6 +73,11 @@ public class OrganizationGUI extends JFrame {
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			       System.out.println("You chose to open this file: " +
 			            chooser.getSelectedFile().getName());
+						c01_project.database.CSVParser csvp = new
+										CSVParser(databaseName);
+						csvp.parseCSVBasicICareTemplate(chooser.getSelectedFile().getAbsolutePath())
+										.dumpIntoDatabase(databaseName);
+
 			    }
 				
 			}
@@ -79,7 +89,7 @@ public class OrganizationGUI extends JFrame {
 		btnManuallyUploadData.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Manuallu Upload Data button pressed");
+				System.out.println("Manual Upload Data button pressed");
 			}
 		});
 		btnManuallyUploadData.setBounds(295, 184, 142, 23);
