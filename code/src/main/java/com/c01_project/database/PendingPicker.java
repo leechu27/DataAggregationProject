@@ -36,12 +36,14 @@ public class PendingPicker {
 			
 			// Looks for file and moves it if found otherwise does nothing
 			File[] listOfFiles = folder.listFiles();
-			for (int i = 0; i < listOfFiles.length; i++) {
-			  if (listOfFiles[i].isFile()) {
-			    if (listOfFiles[i].getName().equals(filename)) {
-			    	Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-			    }
-			  }
+			if (listOfFiles != null) {
+				for (int i = 0; i < listOfFiles.length; i++) {
+					if (listOfFiles[i].isFile()) {
+						if (listOfFiles[i].getName().equals(filename)) {
+							Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
+						}
+					}
+				}
 			}
 		}
 	}

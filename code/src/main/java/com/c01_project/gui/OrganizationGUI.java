@@ -1,11 +1,16 @@
 package c01_project.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import c01_project.database.CSVParser;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.EventQueue;
+import javax.swing.JFileChooser;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -17,6 +22,9 @@ import java.awt.event.MouseEvent;
 public class OrganizationGUI extends JFrame {
 
 	private JPanel contentPane;
+
+	// Change this to the name of the main database later
+	private String databaseName = "test.db";
 
 	/**
 	 * Launch the application.
@@ -56,6 +64,22 @@ public class OrganizationGUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Upload Template Button pressed");
+				// Gets the file from user 
+				JFileChooser chooser = new JFileChooser();
+			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "CSV Files", "csv");
+			    chooser.setFileFilter(filter);
+			    int returnVal = chooser.showOpenDialog(null);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			       System.out.println("You chose to open this file: " +
+			            chooser.getSelectedFile().getName());
+						c01_project.database.CSVParser csvp = new
+										CSVParser(databaseName);
+						csvp.parseCSVBasicICareTemplate(chooser.getSelectedFile().getAbsolutePath())
+										.dumpIntoDatabase(databaseName);
+
+			    }
+				
 			}
 		});
 		btnNewButton.setBounds(75, 184, 142, 23);
@@ -65,7 +89,7 @@ public class OrganizationGUI extends JFrame {
 		btnManuallyUploadData.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Manuallu Upload Data button pressed");
+				System.out.println("Manual Upload Data button pressed");
 			}
 		});
 		btnManuallyUploadData.setBounds(295, 184, 142, 23);
