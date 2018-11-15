@@ -192,11 +192,151 @@ public class DatabaseSelectorTest {
     }
   }
   
-  /*
   @Test
-  @DisplayName("select an incorrect column")
-  public void test() {
-
+  @DisplayName("select one column with a condition, version 1")
+  public void testOneColumnFilter1() {
+    List<String> columns = new ArrayList<String>();
+    columns.add("name");
+    List<String> expected = new ArrayList<String>();
+    List<String> outcome = new ArrayList<String>();
+    expected.add("Mohammed Ali");
+    expected.add("Terry Suns");
+    try {
+      ResultSet result = DatabaseSelector.selectColumns(query, "basic_data", columns, "language_of_service = 'English'");
+      while (result.next()) {
+        outcome.add(result.getString("name"));
+        }
+      result.close();
+      assertEquals(expected, outcome);
+    } catch (SQLException sql) {
+      fail(sql.getMessage());
+    } catch (DatabaseNullException dne) {
+      fail("Database is null");
+    } catch (InvalidColumnsException nce) {
+      fail("Columns are invalid");
+    } catch (InvalidTableException nte) {
+      fail("table is invalid");
+    }  catch (InvalidFilterException nfe) {
+      fail("filter is invalid");
+    }
   }
-  */
+  
+  @Test
+  @DisplayName("select one column with a condition, version 2")
+  public void testOneColumnFilter2() {
+    List<String> columns = new ArrayList<String>();
+    columns.add("name");
+    List<String> expected = new ArrayList<String>();
+    List<String> outcome = new ArrayList<String>();
+    expected.add("Mohammed Ali");
+    try {
+      ResultSet result = DatabaseSelector.selectColumns(query, "basic_data", columns, "language_of_preference = 'English'");
+      while (result.next()) {
+        outcome.add(result.getString("name"));
+        }
+      result.close();
+      assertEquals(expected, outcome);
+    } catch (SQLException sql) {
+      fail(sql.getMessage());
+    } catch (DatabaseNullException dne) {
+      fail("Database is null");
+    } catch (InvalidColumnsException nce) {
+      fail("Columns are invalid");
+    } catch (InvalidTableException nte) {
+      fail("table is invalid");
+    }  catch (InvalidFilterException nfe) {
+      fail("filter is invalid");
+    }
+  }
+  
+  @Test
+  @DisplayName("select two columns with filter, version 1")
+  public void testTwoColumnsWithFilter1() {
+    List<String> columns = new ArrayList<String>();
+    columns.add("name");
+    columns.add("date_of_birth");
+    List<List<String>> expected = new ArrayList<List<String>>();
+    List<List<String>> outcome = new ArrayList<List<String>>();
+    List<String> expectedRow1 = new ArrayList<String>();
+    List<String> expectedRow2 = new ArrayList<String>();
+    List<String> outputRow1 = new ArrayList<String>();
+    List<String> outputRow2 = new ArrayList<String>();
+    expectedRow1.add("Mohammed Ali");
+    expectedRow1.add("1995-02-31");
+    expectedRow2.add("Terry Suns");
+    expectedRow2.add("1990-05-04");
+    expected.add(expectedRow1);
+    expected.add(expectedRow2);
+    try {
+      ResultSet result = DatabaseSelector.selectColumns(query, "basic_data", columns, "language_of_service = 'English'");
+      if (result == null) {
+        fail("no resultset found");
+      }
+      int i = 0;
+      while (result.next()) {
+        if (i == 0) {
+          outputRow1.add(result.getString("name"));
+          outputRow1.add(result.getString("date_of_birth"));
+          outcome.add(outputRow1);
+          i++;
+        } else if (i == 1) {
+          outputRow2.add(result.getString("name"));
+          outputRow2.add(result.getString("date_of_birth"));
+          outcome.add(outputRow2);
+          i++;
+        }
+      }
+      result.close();
+      assertEquals(expected, outcome);
+    } catch (SQLException sql) {
+      fail(sql.getMessage());
+    } catch (DatabaseNullException dne) {
+      fail("Database is null");
+    } catch (InvalidColumnsException nce) {
+      fail("Columns are invalid");
+    } catch (InvalidTableException nte) {
+      fail("table is invalid");
+    } catch (InvalidFilterException nfe) {
+      fail("filter is invalid");
+    }
+  }
+  
+  @Test
+  @DisplayName("select two columns with filter, version 2")
+  public void testTwoColumnsWithFilter2() {
+    List<String> columns = new ArrayList<String>();
+    columns.add("name");
+    columns.add("date_of_birth");
+    List<List<String>> expected = new ArrayList<List<String>>();
+    List<List<String>> outcome = new ArrayList<List<String>>();
+    List<String> expectedRow = new ArrayList<String>();
+    List<String> outputRow = new ArrayList<String>();
+    expectedRow.add("Mohammed Ali");
+    expectedRow.add("1995-02-31");
+    expected.add(expectedRow);
+    try {
+      ResultSet result = DatabaseSelector.selectColumns(query, "basic_data", columns, "language_of_preference = 'English'");
+      if (result == null) {
+        fail("no resultset found");
+      }
+      int i = 0;
+      while (result.next()) {
+        outputRow.add(result.getString("name"));
+        outputRow.add(result.getString("date_of_birth"));
+        outcome.add(outputRow);
+      }
+      result.close();
+      assertEquals(expected, outcome);
+    } catch (SQLException sql) {
+      fail(sql.getMessage());
+    } catch (DatabaseNullException dne) {
+      fail("Database is null");
+    } catch (InvalidColumnsException nce) {
+      fail("Columns are invalid");
+    } catch (InvalidTableException nte) {
+      fail("table is invalid");
+    } catch (InvalidFilterException nfe) {
+      fail("filter is invalid");
+    }
+  }
 }
