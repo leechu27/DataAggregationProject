@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import c01_project.database.CSVParser;
 import c01_project.database.DatabaseQuery;
-import c01_project.database.databaseSetup;
 
 
 public class DatabaseSelectorTest {
@@ -36,7 +35,7 @@ public class DatabaseSelectorTest {
     expected.add("Mohammed Ali");
     expected.add("Terry Suns");
 	try {
-	  ResultSet result = DatabaseSelector.selectColumns(query, "basic_data", columns);
+	  ResultSet result = c01_project.database.selector.DatabaseSelector.selectColumns(query, "basic_data", columns);
 	  while (result.next()) {
 	    outcome.add(result.getString("name"));
 		}
@@ -44,11 +43,11 @@ public class DatabaseSelectorTest {
 	  assertEquals(expected, outcome);
 	} catch (SQLException sql) {
 	  fail(sql.getMessage());
-	} catch (DatabaseNullException dne) {
+	} catch (c01_project.database.selector.DatabaseNullException dne) {
 	  fail("Database is null");
-	} catch (InvalidColumnsException nce) {
+	} catch (c01_project.database.selector.InvalidColumnsException nce) {
 	  fail("Columns are invalid");
-	} catch (InvalidTableException nte) {
+	} catch (c01_project.database.selector.InvalidTableException nte) {
 	  fail("table is invalid");
 	}
   }
