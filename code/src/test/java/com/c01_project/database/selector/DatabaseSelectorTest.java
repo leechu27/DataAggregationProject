@@ -110,11 +110,88 @@ public class DatabaseSelectorTest {
     assertThrows(InvalidColumnsException.class, ()->{DatabaseSelector.selectColumns(query, "basic_data", columns);});
   }
   
-  /*@Test
+  @Test
+  @DisplayName("select * and other columns (syntax error)")
+  public void testStarColumnsError() {
+    List<String> columns = new ArrayList<String>();
+    columns.add("*");
+    columns.add("name");
+    assertThrows(InvalidColumnsException.class, ()->{DatabaseSelector.selectColumns(query, "basic_data", columns);});
+  }
+  
+  @Test
   @DisplayName("select * from a table")
   public void testAllColumns() {
-    
-  }*/
+    List<String> columns = new ArrayList<String>();
+    columns.add("name");
+    columns.add("date_of_birth");
+    List<List<String>> expected = new ArrayList<List<String>>();
+    List<List<String>> outcome = new ArrayList<List<String>>();
+    List<String> expectedRow1 = new ArrayList<String>();
+    List<String> expectedRow2 = new ArrayList<String>();
+    List<String> outputRow1 = new ArrayList<String>();
+    List<String> outputRow2 = new ArrayList<String>();
+    expectedRow1.add("1");
+    expectedRow1.add("Mohammed Ali");
+    expectedRow1.add("MALI");
+    expectedRow1.add("12345");
+    expectedRow1.add("1995-02-31");
+    expectedRow1.add("2018-05-20");
+    expectedRow1.add("English");
+    expectedRow1.add("English");
+    expectedRow2.add("2");
+    expectedRow2.add("Terry Suns");
+    expectedRow2.add("TSUN");
+    expectedRow2.add("12346");
+    expectedRow2.add("1990-05-04");
+    expectedRow2.add("2018-03-21");
+    expectedRow2.add("English");
+    expectedRow2.add("French");
+    expected.add(expectedRow1);
+    expected.add(expectedRow2);
+    try {
+      ResultSet result = DatabaseSelector.selectColumns(query, "basic_data", columns);
+      if (result == null) {
+        fail("no resultset found");
+      }
+      int i = 0;
+      while (result.next()) {
+        if (i == 0) {
+          outputRow1.add(result.getString("id"));
+          outputRow1.add(result.getString("name"));
+          outputRow1.add(result.getString("unique_identifier"));
+          outputRow1.add(result.getString("unique_identifier_value"));
+          outputRow1.add(result.getString("date_of_birth"));
+          outputRow1.add(result.getString("start_daste_of_service"));
+          outputRow1.add(result.getString("language_of_service"));
+          outputRow1.add(result.getString("language_of_preference"));
+          outcome.add(outputRow1);
+          i++;
+        } else if (i == 1) {
+          outputRow2.add(result.getString("id"));
+          outputRow2.add(result.getString("name"));
+          outputRow2.add(result.getString("unique_identifier"));
+          outputRow2.add(result.getString("unique_identifier_value"));
+          outputRow2.add(result.getString("date_of_birth"));
+          outputRow2.add(result.getString("start_daste_of_service"));
+          outputRow2.add(result.getString("language_of_service"));
+          outputRow2.add(result.getString("language_of_preference"));
+          outcome.add(outputRow2);
+          i++;
+        }
+      }
+      result.close();
+      assertEquals(expected, outcome);
+    } catch (SQLException sql) {
+      fail("Unexpected SQLException has been thrown");
+    } catch (DatabaseNullException dne) {
+      fail("Database is null");
+    } catch (InvalidColumnsException nce) {
+      fail("Columns are invalid");
+    } catch (InvalidTableException nte) {
+      fail("table is invalid");
+    }
+  }
   
   /*
   @Test
