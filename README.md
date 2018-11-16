@@ -24,8 +24,8 @@ Added project deliverable 4
 
 Running Instructions:
 
-Command Line Instructions (Unix):
-This project uses maven to build. First, cd into `code/`. Then run `mvn compile` to compile the code, or `mvn test` to run test cases. Once the project has built succesfully, all of the compiled files should be inside `code/target`.
+Command Line Instructions (Unix) (Currently may not work):
+This project uses maven to build. First, cd into `code/`. Then run `mvn compile` to compile the code, or `mvn test` to run test cases. Once the project has built succesfully, all of the compiled files should be inside `code/target/classes`.
 
 IntelliJ Running Instructions:
 - Clone the repository into your preferred folder
@@ -34,3 +34,5 @@ IntelliJ Running Instructions:
 - Under project files, you should now see all of the files associated with the project
 - Right click on the name of a class or test and then choose run `CLASSNAME.main()` to run it
 
+Note:
+Make sure to run the `databaseSetup` inside the database package file before anything to make sure that the database is functional. Then run the LoginGUI to use the program itself.
