@@ -24,15 +24,5 @@ Added project deliverable 4
 
 Running Instructions:
 
-Command Line Instructions (Unix) (Currently may not work):
-This project uses maven to build. First, cd into `code/`. Then run `mvn compile` to compile the code, or `mvn test` to run test cases. Once the project has built succesfully, all of the compiled files should be inside `code/target/classes`.
-
-IntelliJ Running Instructions:
-- Clone the repository into your preferred folder
-- In intelliJ, go to the File menu -> Open
-- Navigate to the code folder and pick the pom.xml file, the project should now load up using the maven configuration
-- Under project files, you should now see all of the files associated with the project
-- Right click on the name of a class or test and then choose run `CLASSNAME.main()` to run it
-
-Note:
-Make sure to run the `databaseSetup` inside the database package file before anything to make sure that the database is functional. Then run the LoginGUI to use the program itself.
+Command Line Instructions (Easy Running):
+This project uses maven to build. First, cd into `code/`. Then run `mvn compile` to compile the code, or `mvn test` to run test cases. Once the project has built succesfully, change directory into `code/target/classes`. Then run `java com.c01_project.Main`. You should see that database's output, as a well as a gui that lets you log into the program.
