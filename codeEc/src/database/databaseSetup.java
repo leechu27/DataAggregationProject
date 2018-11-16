@@ -20,7 +20,7 @@ public class databaseSetup {
   public static void main(String[] args) throws SQLException {
     createNewDatabase("test.db");
     initializeNewTables("test.db");
-    database.CSVParser t1=new database.CSVParser("/src/c01_project.database/test.db");
+    //database.CSVParser t1=new database.CSVParser();
     //t1.parseCSVBasicICareTemplate("sample_data.csv");
     //default users added
     UserQuery.addUser("Alice","123",1);
