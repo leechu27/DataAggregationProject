@@ -1,5 +1,7 @@
 package gui;
 
+import database.UserQuery;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -15,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.sql.SQLException;
 
 public class LoginGUI extends JFrame {
 
@@ -82,8 +85,24 @@ public class LoginGUI extends JFrame {
 				// textField.getText() for the username field
 				// textField_1.getText() for the password field
 				// I think we want to check if the data base has this account
-				System.out.println("Login clicked! User name is: " + textField.getText() + " password given is: " + textField_1.getText());
-				gui.OrganizationGUI.main(null);
+				String username = textField.getText();
+				String password = textField_1.getText();
+				System.out.println("Login clicked! User name is: " + username + " password given is: " + password);
+				int userType = -1;
+				try {
+					userType = UserQuery.login(username, password);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				if (userType == -1) {
+				  // TODO tell them the error
+        } else if (userType == 1 || userType == 2 || userType == 3) {
+          OrganizationGUI.main(null);
+          // TODO do different things for different users
+        }
+
+
 			}
 		});
 		btnLogin.addActionListener(new ActionListener() {
@@ -97,7 +116,7 @@ public class LoginGUI extends JFrame {
 		btnRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				gui.RegistrationGUI.main(null);
+				RegistrationGUI.main(null);
 			}
 		});
 		btnRegister.setBounds(375, 304, 89, 23);

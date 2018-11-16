@@ -6,12 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import database.UserQuery;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class RegistrationGUI extends JFrame {
 
@@ -76,7 +80,15 @@ public class RegistrationGUI extends JFrame {
 		btnRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				String username = textField.getText();
+				String password = textField_1.getText();
 				System.out.println("Username: " + textField.getText() + ";Password: " + textField_1.getText());
+				try {
+					UserQuery.addUser(username, password, 1);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnRegister.setBounds(274, 272, 89, 23);
