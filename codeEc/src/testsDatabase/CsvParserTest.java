@@ -11,11 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CsvParserTest {
 
   private final String TEST_ROOT = "test_resources/testICareTemplates/";
-<<<<<<< HEAD
   private final String REAL_SAMPLES_ROOT = "test_resources/csv/";
-=======
-  private final String REAL_SAMPLES_ROOT = "test_resources/csv";
->>>>>>> master
   
   private static database.CSVParser c;
   private static MockPendingDatabaseEntry p;
@@ -118,7 +114,6 @@ public class CsvParserTest {
   }
 
   @Test
-<<<<<<< HEAD
   @DisplayName("test using a real ICare template (client profile)")
   public void testRealCSVTemplateClientProfile() {
     database.PendingDatabaseEntryInterface p =
@@ -491,24 +486,6 @@ public class CsvParserTest {
     		"12345678 Needs_Assessment_and_Referrals assessment_completed_dt 2018-05-20\n" + 
     		"12345678 Needs_Assessment_and_Referrals assessment_update_reason_id Amend record\n" + 
     		"", p.getAsSQL("test.db"));
-=======
-  @DisplayName("test a file where only the first line with the main identifier missing")
-  public void testRealCSVTemplate() {
-    database.PendingDatabaseEntryInterface p =
-            c.parseCSVBasicICareTemplate(TEST_ROOT + "missing_info_on_first_line_but_rest_fine.csv");
-    assertEquals(" Client_Profile name Mohammed Ali\n" +
-            " Client_Profile unique_identifier_value 12345\n" +
-            " Client_Profile date_of_birth 1995-02-31\n" +
-            " Client_Profile start_date_of_service 2018-05-20\n" +
-            " Client_Profile language_of_service English\n" +
-            " Client_Profile language_of_preference English\n" +
-            "TSUN Client_Profile name Terry Suns\n" +
-            "TSUN Client_Profile unique_identifier_value 12346\n" +
-            "TSUN Client_Profile date_of_birth 1990-05-04\n" +
-            "TSUN Client_Profile start_date_of_service 2018-03-21\n" +
-            "TSUN Client_Profile language_of_service English\n" +
-            "TSUN Client_Profile language_of_preference French\ndaq", p.getAsSQL("test.db"));
->>>>>>> master
   }
 
 

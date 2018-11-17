@@ -13,11 +13,7 @@ import java.util.List;
 public class CSVParser {
 
   // Where the primary ID used to identify each user can be found in the csv
-<<<<<<< HEAD
   private int PRIMARY_ID_COLUMN = 0;
-=======
-  private static int PRIMARY_ID_COLUMN = 0;
->>>>>>> master
   private static final String PRIMARY_ID_COL_NAME = "client_validation_id";
   private static final String DEFAULT_TABLE = "client_profile";
   private PendingDatabaseEntryInterface pde;
@@ -57,10 +53,6 @@ public class CSVParser {
 	    String tableName;
 	    String[] columnNames;
 	    ArrayList<String[]> lines;
-<<<<<<< HEAD
-=======
-	    
->>>>>>> master
 
 	    try {
 
@@ -81,19 +73,11 @@ public class CSVParser {
 
 	      // reading the csv
 	      while ((line = br.readLine()) != null) {
-<<<<<<< HEAD
 	    	  if (!line.equals("") && (line.split(csvSplitBy).length == columnNames.length)) {
 	    		  String[] patient = line.split(csvSplitBy);  
 	    		  lines.add(patient);
 	    	  }
 	        // TODO need to add escape sequences. This is probably easier done with a library another time
-=======
-	        String[] patient = line.split(csvSplitBy);
-	        
-	        // TODO need to add escape sequences. This is probably easier done with a library another time
-	        
-	        lines.add(patient);
->>>>>>> master
 	      }
 
 	      // add the actual data
