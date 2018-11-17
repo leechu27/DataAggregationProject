@@ -74,9 +74,9 @@ public class OrganizationGUI extends JFrame {
 			       System.out.println("You chose to open this file: " +
 			            chooser.getSelectedFile().getName());
 						database.CSVParser csvp = new
-										CSVParser(databaseName);
-						csvp.parseCSVBasicICareTemplate(chooser.getSelectedFile().getAbsolutePath())
-										.dumpIntoDatabase(databaseName);
+										CSVParser();
+						System.out.println(csvp.parseCSVBasicICareTemplate(chooser.getSelectedFile().getAbsolutePath())
+										.dumpIntoDatabase(databaseName));
 
 			    }
 				

@@ -54,5 +54,29 @@ public class DatabaseQuery {
     return output;
 
   }
+  
+  /**
+   * updates the database the database
+   * @param pathToDatabase the path to the SQLite database
+   */
+  public void updateWithSQL(String rawSQL) {
+
+    ResultSet output = null;
+    // make sure the programmer is not trying to make anything dangerous
+    // select will never
+    assert rawSQL.startsWith("SELECT") || rawSQL.startsWith("Select") ||
+            rawSQL.startsWith("select");
+
+    // runs the actual sql command
+    String url = "jdbc:sqlite:" + this.path;
+    try {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(rawSQL);
+    }
+    catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+
+  }
 
 }

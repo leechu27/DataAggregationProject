@@ -10,7 +10,8 @@ import java.util.List;
  */
 public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
 
-  /*
+  private static final String MAIN_ID_COLUMN_NAME = CSVParser.PRIMARY_ID_COL_NAME;
+/*
    * Maps each user to all of the entries they need made
    * Each user has a list of insertions that they need to make
    * each insertion contains the table name, Column name,
@@ -33,7 +34,7 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
   public void addData(String userId, String tableName, String columnName, String data) {
     //TODO check whether this data is even in the database in the first place
     //TODO get a safer method to do this, that checks the type of the data instead of assuming everything is raw text
-    if (!insertions.containsKey(userId)) {
+    if (!insertions.containsKey(userId)) { // add new user if we didn't yet
       insertions.putIfAbsent(userId, new ArrayList<>());
     }
     List<String> insertion = Arrays.asList(tableName, columnName, data);
@@ -56,21 +57,20 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
    */
   public String dumpIntoDatabase(String databaseName) {
     database.DatabaseQuery dq = new database.DatabaseQuery(databaseName);
-    String ret = "";
+    String ret = "updated database succesfully!";
     // Go through each user, and add their data to the database
     for (String userId : insertions.keySet()) {
       for (List<String> data : insertions.get(userId)) {
         String tableName = data.get(0);
-        String columnName = data.get(1);
+        String columnName = data.get(1).replace("ï", "").replace("»", "").replace("¿", ""); // pretend you don't see this
         String insertable = data.get(2);
 
         String sql =
         "UPDATE " + tableName + "\n" +
         "SET " + columnName + " = '" + insertable + "'\n" +
-        "WHERE\n" +
-        " id = " + userId.toString() + ";";
+        "WHERE " + MAIN_ID_COLUMN_NAME + " = " + userId.toString() + ";";
 
-        ret += dq.queryWithSQL(sql).toString();
+        dq.updateWithSQL(sql);
       }
     }
     return ret;

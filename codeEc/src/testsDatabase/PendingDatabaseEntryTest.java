@@ -35,7 +35,7 @@ public class PendingDatabaseEntryTest {
     p.addData("ADJU", "basic_data", "unique_identifier_value", "123456");
     assertEquals("UPDATE basic_data\n" +
             "SET unique_identifier_value = '123456'\n" +
-            "WHERE id = ADJU;\n", p.getAsSQL("test.db"), "single query query");
+            "WHERE id = ADJU;\n", p.getAsSQL("test.db"), "single query");
   }
 
   @Test
