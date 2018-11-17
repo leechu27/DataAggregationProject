@@ -30,6 +30,7 @@ public class BarGraphReport implements Report{
     this.title = title;
     this.category = category;
     this.value = value;
+    this.data = new DefaultCategoryDataset();
   }
 
   @Override
@@ -52,5 +53,22 @@ public class BarGraphReport implements Report{
     JFreeChart barChart = ChartFactory.createBarChart(title, category, value, data);
     return barChart;
   }
+
+  @Override
+  public void clear() {
+    data.clear();
+  }
   
+  /*
+  public static void main(String[] args) {
+    try {
+      BarGraphReport testReport = new BarGraphReport("testBar.png", "Bar Test", "Age Ranges", "# of people");
+      testReport.setNewData("7", new Double(3));
+      testReport.setNewData("not 7", new Double(27));
+      testReport.writeToFile();
+    } catch (InvalidFileException e) {
+      e.printStackTrace();
+    }
+  }
+  */
 }

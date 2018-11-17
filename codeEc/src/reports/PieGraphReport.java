@@ -6,7 +6,6 @@ import java.io.IOException;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.general.DefaultPieDataset;
 
 public class PieGraphReport implements Report{
@@ -52,4 +51,21 @@ public class PieGraphReport implements Report{
     JFreeChart pieChart = ChartFactory.createPieChart(title, data);
     return pieChart;
   }
+
+  @Override
+  public void clear() {
+    data.clear();
+  }
+  
+  /*public static void main(String[] args) {
+    try {
+      PieGraphReport testReport = new PieGraphReport("test.png", "Pie Test");
+      testReport.setNewData("A small slice", new Double(3));
+      testReport.setNewData("Big Pie", new Double(27));
+      testReport.writeToFile();
+    } catch (InvalidFileException e) {
+      e.printStackTrace();
+    }
+  }*/
+  
 }
