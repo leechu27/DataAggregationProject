@@ -2,32 +2,17 @@ package reports;
 
 import java.io.File;
 
-public class Report {
-
-	private String location;
-	private String name;
-	private String fileRegex = ".+[.]csv";
-
-	/* Constructor for report 
-	 * 
-	 * @param report name as a .csv file
-	 * @param file path from root directory to destination
-	 * @throws InvalidFileException if file name is not of .csv format
-	 * @throws FileExistsException if file name is linked to an existing file
-	 */
-	public Report(String name, String location) throws gui.InvalidFileException, gui.FileExistsException {
-		if (name.matches(fileRegex)) {
-			
-			File file = new File(location + name);
-			if (file.exists()) {
-				throw new gui.FileExistsException();
-			}
-			this.location = location;
-			this.name = name;
-		}
-		throw new gui.InvalidFileException();
-	}
+public interface Report {
 	
-	/*public static void main(String[] args) {
-	}*/
+	/*
+	 * Outputs the current data to the file location
+	 */
+	public void writeToFile();
+	
+	/*
+	 * adds a new data entry to the graph to be displayed on the file, updates a value if the key exists
+	 * @param key      The key to be set
+	 * @param value    The value of the new key
+	 */
+	public void setNewData(String key, double value);
 }
