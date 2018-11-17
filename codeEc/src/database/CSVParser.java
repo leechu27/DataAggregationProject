@@ -14,7 +14,7 @@ public class CSVParser {
 
   // Where the primary ID used to identify each user can be found in the csv
   private int PRIMARY_ID_COLUMN = 0;
-  private static final String PRIMARY_ID_COL_NAME = "client_validation_id";
+  public static final String PRIMARY_ID_COL_NAME = "client_validation_id";
   private static final String DEFAULT_TABLE = "client_profile";
   private PendingDatabaseEntryInterface pde;
 
@@ -25,6 +25,16 @@ public class CSVParser {
   public CSVParser(PendingDatabaseEntryInterface i) {
     this.pde = i;
   }
+  
+  /**
+   * Main method just for personal testing
+   */
+  public static void main(String[] args) {
+	CSVParser c = new CSVParser();
+	System.out.println(c.parseCSVBasicICareTemplate("test_resources/csv/clientProfile.csv").dumpIntoDatabase("test.db"));
+	System.out.println();
+  }
+  
   
   
   /**
@@ -82,10 +92,10 @@ public class CSVParser {
 
 	      // add the actual data
 	      for (String[] user: lines) {
-	        String id = user[PRIMARY_ID_COLUMN];
+	        String userId = user[PRIMARY_ID_COLUMN];
 	        for (int i = 0; i < columnNames.length; i++) {
 	          if (i != PRIMARY_ID_COLUMN)
-	            entry.addData(id, tableName, columnNames[i], user[i]);
+	            entry.addData(userId, tableName, columnNames[i], user[i]);
 	        }
 	      }
 
