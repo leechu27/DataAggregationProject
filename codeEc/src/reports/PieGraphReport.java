@@ -3,10 +3,13 @@ package reports;
 import gui.InvalidFileException;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
+import database.DatabaseQuery;
 
 public class PieGraphReport implements Report{
 
@@ -60,12 +63,16 @@ public class PieGraphReport implements Report{
   /*public static void main(String[] args) {
     try {
       PieGraphReport testReport = new PieGraphReport("testPie.png", "Pie Test");
-      testReport.setNewData("A small slice", new Double(3));
-      testReport.setNewData("Big Pie", new Double(27));
+      ArrayList<String> entries = new ArrayList<String>();
+      entries.add("language_of_preference = 'English'");
+      entries.add("language_of_preference = 'French'");
+      ReportHelper.addEntries(testReport, new DatabaseQuery("test_resources/testDatabases/test.db"), "basic_data", entries);;
       testReport.writeToFile();
     } catch (InvalidFileException e) {
       e.printStackTrace();
+    } catch (SQLException sql) {
+      System.out.println(sql.getMessage());
     }
-  }*/
+  } */
   
 }

@@ -16,7 +16,7 @@ public class ReportHelper {
    * @param table       the table in the database to retrieve the database from
    * @param entries     the entries to be added into the report, formatted in a way that it can be put into SQL as a condition
    */
-  public void addEntries(Report report, DatabaseQuery database, String table, List<String> entries) throws SQLException {
+  public static void addEntries(Report report, DatabaseQuery database, String table, List<String> entries) throws SQLException {
     int value;
     for (String entry : entries) {
       value = DatabaseSelector.countRows(database, table, entry);
