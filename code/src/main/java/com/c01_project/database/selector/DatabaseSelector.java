@@ -1,9 +1,9 @@
 package c01_project.database.selector;
 
-import c01_project.database.DatabaseQuery;
-
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import c01_project.database.DatabaseQuery;
 
 public class DatabaseSelector {
 
@@ -13,15 +13,15 @@ public class DatabaseSelector {
    * @param table a table in the database 
    * @param columns the columns, of the table, that are the desired
    */
-  public static ResultSet selectColumns(DatabaseQuery database, String table, List<String> columns) throws c01_project.database.selector.DatabaseNullException, c01_project.database.selector.InvalidTableException, c01_project.database.selector.InvalidColumnsException {
+  public static ResultSet selectColumns(DatabaseQuery database, String table, List<String> columns) throws DatabaseNullException, InvalidTableException, InvalidColumnsException {
     if (database == null) {
-      throw new c01_project.database.selector.DatabaseNullException();
+      throw new DatabaseNullException();
     } else if (table == null) {
-      throw new c01_project.database.selector.InvalidTableException();
+      throw new InvalidTableException();
     } else if (columns == null || columns.size() == 0) {
-      throw new c01_project.database.selector.InvalidColumnsException();
+      throw new InvalidColumnsException();
     } else if (columns.size() > 1 && columns.contains("*")) {
-      throw new c01_project.database.selector.InvalidColumnsException();
+      throw new InvalidColumnsException();
     }
     
     String rawSQL = formSQL(table, columns);
@@ -53,6 +53,16 @@ public class DatabaseSelector {
     ResultSet data = database.queryWithSQL(rawSQL);
     return data;
     
+  }
+  
+  public static int countRows(DatabaseQuery database, String table, String entry) throws SQLException {
+    int value;
+    String cmd = "SELECT COUNT(*) AS rowcount FROM " + table + " WHERE " + entry;
+    ResultSet result = database.queryWithSQL(cmd);
+    result.next();
+    value = result.getInt("rowcount");
+    result.close();
+    return value;
   }
   
   /*
