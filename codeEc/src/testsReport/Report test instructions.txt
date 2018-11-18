@@ -1,0 +1,14 @@
+TO TEST REPORT GENERATION:
+- initialize a report object
+	- notate the report file's location and the Report's title
+- setNewData for new entries in the graph
+- writeToFile to create the file
+- check the file at the given file location to confirm validity
+
+
+TO TEST REPORT GENERATION WITH DATA FROM DATABASE:
+- initialize a report object
+	- notate the report file's location and the Report's title
+- Use ReportHelper.addEntries to process new entries/ existing entries from a database to the report
+- writeToFile to create the file
+- check the file at the given file location to confirm validity
