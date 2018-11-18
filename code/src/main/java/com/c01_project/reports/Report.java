@@ -15,4 +15,9 @@ public interface Report {
 	 * @param value    The value of the new key
 	 */
 	public void setNewData(String key, double value);
+	
+	/*
+	 * clears the data set of existing values
+	 */
+	public void clear();
 }

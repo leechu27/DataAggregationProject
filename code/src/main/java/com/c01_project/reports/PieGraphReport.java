@@ -52,4 +52,9 @@ public class PieGraphReport implements Report{
     JFreeChart pieChart = ChartFactory.createPieChart(title, data);
     return pieChart;
   }
+  
+  @Override
+  public void clear() {
+    data.clear();
+  }
 }

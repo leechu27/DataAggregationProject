@@ -53,4 +53,8 @@ public class BarGraphReport implements Report{
     return barChart;
   }
   
+  @Override
+  public void clear() {
+    data.clear();
+  }
 }
