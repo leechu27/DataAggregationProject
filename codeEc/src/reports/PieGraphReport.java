@@ -3,13 +3,10 @@ package reports;
 import gui.InvalidFileException;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-import database.DatabaseQuery;
 
 public class PieGraphReport implements Report{
 
