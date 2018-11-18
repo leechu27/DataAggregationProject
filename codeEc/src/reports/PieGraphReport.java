@@ -59,7 +59,7 @@ public class PieGraphReport implements Report{
   
   /*public static void main(String[] args) {
     try {
-      PieGraphReport testReport = new PieGraphReport("test.png", "Pie Test");
+      PieGraphReport testReport = new PieGraphReport("testPie.png", "Pie Test");
       testReport.setNewData("A small slice", new Double(3));
       testReport.setNewData("Big Pie", new Double(27));
       testReport.writeToFile();

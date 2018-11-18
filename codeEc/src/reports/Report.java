@@ -1,7 +1,5 @@
 package reports;
 
-import java.io.File;
-
 public interface Report {
 	
 	/*
