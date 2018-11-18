@@ -1,10 +1,9 @@
 package databaseSelector;
 
 import java.sql.ResultSet;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.List;
 import database.DatabaseQuery;
-import database.databaseSetup;
 
 public class DatabaseSelector {
 
@@ -54,6 +53,16 @@ public class DatabaseSelector {
     ResultSet data = database.queryWithSQL(rawSQL);
     return data;
     
+  }
+  
+  public static int countRows(DatabaseQuery database, String table, String entry) throws SQLException {
+    int value;
+    String cmd = "SELECT COUNT(*) AS rowcount FROM " + table + " WHERE " + entry;
+    ResultSet result = database.queryWithSQL(cmd);
+    result.next();
+    value = result.getInt("rowcount");
+    result.close();
+    return value;
   }
   
   /*
