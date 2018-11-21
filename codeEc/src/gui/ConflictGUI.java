@@ -15,18 +15,33 @@ import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 
 public class ConflictGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTable table_1;
+	private static JTable table;
+	private static JTable table_1;
+	
+	private static boolean decisionMade = false;
+	private static boolean replaceOldData;
 
+	public static void main(String[] args) {
+		start();
+		try {
+			OrganizationGUI.dumpIntoDatabase("test_resources/csv/clientProfile.csv");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void start() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -124,16 +139,47 @@ public class ConflictGUI extends JFrame {
 		btnSelect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				decisionMade = true;
 				if (rdbtnOldData.isSelected()) {
 					System.out.println("old data selected");
+					replaceOldData = false;
 				}
 				else {
 					System.out.println("new data selected");
-					
+					replaceOldData = false;
 				}
 			}
 		});
 		btnSelect.setBounds(593, 448, 89, 23);
 		contentPane.add(btnSelect);
+	}
+	
+	
+	public static void setOldRows(String[] columnNames, String[] oldData) {
+		table.setModel(new DefaultTableModel(new Object[][] {oldData}, columnNames));
+	}
+	
+	public static void setNewRows(String[] columnNames, String[] newData) {
+		table_1.setModel(new DefaultTableModel(new Object[][] {newData}, columnNames));
+	}
+
+	/**
+	 * Asks the gui whether the user wants to pick the old or new data in the database
+	 * will wait until the user makes a decision
+	 * @return true if the user wants to replace the data in the database
+	 */
+	public static boolean dataToBeReplaced() {
+		// waits until the user makes a decision. This 
+				while (!decisionMade) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				// when this class is called again, make sure to wait for it the next time
+				decisionMade = false;
+				return replaceOldData;
 	}
 }

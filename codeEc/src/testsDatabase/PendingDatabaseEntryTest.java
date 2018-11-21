@@ -20,7 +20,7 @@ public class PendingDatabaseEntryTest {
 
   @BeforeEach
   public void reset() {
-    p.clear();
+    p = new database.PendingDatabaseEntry();
   }
 
   @Test
@@ -33,9 +33,10 @@ public class PendingDatabaseEntryTest {
   @DisplayName("one valid entry to be added")
   public void testSingleValidData() {
     p.addData("ADJU", "basic_data", "unique_identifier_value", "123456");
-    assertEquals("UPDATE basic_data\n" +
-            "SET unique_identifier_value = '123456'\n" +
-            "WHERE id = ADJU;\n", p.getAsSQL("test.db"), "single query");
+    assertEquals("UPDATE basic_data\n" + 
+    		"Set unique_identifier_value = '123456'\n" + 
+    		"WHERE client_validation_id = ADJU;\n" + 
+    		"", p.getAsSQL("test.db"), "single query");
   }
 
   @Test
@@ -44,15 +45,38 @@ public class PendingDatabaseEntryTest {
     p.addData("ADJU", "basic_data", "unique_identifier_value", "123456");
     p.addData("ADJU", "basic_data", "date_of_birth", "99-04-23");
     p.addData("ADJU", "basic_data", "start_date_of_service", "18-11-11");
-    assertEquals("UPDATE basic_data\n" +
-            "SET unique_identifier_value = '123456'\n" +
-            "WHERE id = ADJU;\n" +
-            "UPDATE basic_data\n" +
-            "SET date_of_birth = '99-04-23'\n" +
-            "WHERE id = ADJU;\n" +
-            "UPDATE basic_data\n" +
-            "SET start_date_of_service = '18-11-11'\n" +
-            "WHERE id = ADJU;\n", p.getAsSQL("test.db"), "multiple queries for one person");
+    assertEquals("UPDATE basic_data\n" + 
+    		"Set date_of_birth = '99-04-23'\n" + 
+    		"WHERE client_validation_id = ADJU;\n" + 
+    		"UPDATE basic_data\n" + 
+    		"Set unique_identifier_value = '123456'\n" + 
+    		"WHERE client_validation_id = ADJU;\n" + 
+    		"UPDATE basic_data\n" + 
+    		"Set start_date_of_service = '18-11-11'\n" + 
+    		"WHERE client_validation_id = ADJU;\n" + 
+    		"", p.getAsSQL("test.db"), "multiple queries for one person");
+  }
+
+  @Test
+  @DisplayName("multiple valid to be added to the database for the different person")
+  public void testMulipleEntriesGiven1() {
+    p.addData("ADJU", "basic_data", "unique_identifier_value", "123456");
+    p.addData("ADJU", "basic_data", "date_of_birth", "99-04-23");
+    p.addData("BLAS", "basic_data", "date_of_birth", "99-04-23");
+    p.addData("BLAS", "basic_data", "start_date_of_service", "18-11-11");
+    assertEquals("UPDATE basic_data\n" + 
+    		"Set date_of_birth = '99-04-23'\n" + 
+    		"WHERE client_validation_id = ADJU;\n" + 
+    		"UPDATE basic_data\n" + 
+    		"Set unique_identifier_value = '123456'\n" + 
+    		"WHERE client_validation_id = ADJU;\n" + 
+    		"UPDATE basic_data\n" + 
+    		"Set date_of_birth = '99-04-23'\n" + 
+    		"WHERE client_validation_id = BLAS;\n" + 
+    		"UPDATE basic_data\n" + 
+    		"Set start_date_of_service = '18-11-11'\n" + 
+    		"WHERE client_validation_id = BLAS;\n" + 
+    		"", p.getAsSQL("test.db"), "multiple queries for one person");
   }
 
 }

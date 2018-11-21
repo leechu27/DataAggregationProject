@@ -1,6 +1,8 @@
 package gui;
 
 import database.CSVParser;
+import database.PendingDatabaseEntry;
+import database.PendingDatabaseEntryInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -18,14 +20,18 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class OrganizationGUI extends JFrame {
 
 	private JPanel contentPane;
 
 	// Change this to the name of the main database later
-	private String databaseName = "test.db";
+	private static String databaseName = "test.db";
 
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -73,10 +79,13 @@ public class OrganizationGUI extends JFrame {
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			       System.out.println("You chose to open this file: " +
 			            chooser.getSelectedFile().getName());
-						database.CSVParser csvp = new
-										CSVParser();
-						System.out.println(csvp.parseCSVBasicICareTemplate(chooser.getSelectedFile().getAbsolutePath())
-										.dumpIntoDatabase(databaseName));
+						String filepath = chooser.getSelectedFile().getAbsolutePath();
+						try {
+							dumpIntoDatabase(filepath);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 
 			    }
 				
@@ -94,5 +103,21 @@ public class OrganizationGUI extends JFrame {
 		});
 		btnManuallyUploadData.setBounds(295, 184, 142, 23);
 		contentPane.add(btnManuallyUploadData);
+	}
+	
+	/**
+	 * Dumps the csv file at the given location and uses the conflict management system
+	 * to ask the user for input as to whether to replace the content or not
+	 * 
+	 * @param filepath
+	 * @throws SQLException
+	 */
+	public static void dumpIntoDatabase(String filepath) throws SQLException {
+		database.CSVParser csvp = new CSVParser();
+		PendingDatabaseEntry entry = (PendingDatabaseEntry) csvp.parseCSVBasicICareTemplate(filepath);
+		entry.verifyWithGUIIfNeeded(databaseName);
+		System.out.println(entry.dumpIntoDatabase(databaseName));
+		System.out.println("dumped from " + filepath);
+		System.out.println("into " + databaseName);
 	}
 }
