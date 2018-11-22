@@ -15,23 +15,35 @@ import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
 
+/**
+ * The class letting users choose wther to keep old data from the database or to replace it
+ * This class is a singleton
+ */
 public class ConflictGUI extends JFrame {
 
-	private JPanel contentPane;
+	private static JPanel contentPane;
 	private static JTable table;
 	private static JTable table_1;
 	
+	private static boolean guiStarted = false;
 	private static boolean decisionMade = false;
 	private static boolean replaceOldData;
+	
+	private static ConflictGUI instance = null;
 
 	public static void main(String[] args) {
-		start();
+		dumpIntoDatabase("test_resources/csv/clientProfile.csv");
+	}
+	
+	public static void dumpIntoDatabase(String csvName) {
+		startGUI();
 		try {
-			OrganizationGUI.dumpIntoDatabase("test_resources/csv/clientProfile.csv");
+			OrganizationGUI.dumpIntoDatabase(csvName);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,12 +53,15 @@ public class ConflictGUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void start() {
+	public static void startGUI() {
+		guiStarted = true;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ConflictGUI frame = new ConflictGUI();
-					frame.setVisible(true);
+					System.out.println("GUI starting up");
+					instance = new ConflictGUI();
+					instance.setVisible(true);
+					System.out.println("gui is started!");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -152,11 +167,25 @@ public class ConflictGUI extends JFrame {
 		});
 		btnSelect.setBounds(593, 448, 89, 23);
 		contentPane.add(btnSelect);
+		this.setVisible(true);
 	}
 	
+	/**
+	 * Wait for the given number of milliseconds
+	 * @param millis
+	 */
+	private static void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public static void setOldRows(String[] columnNames, String[] oldData) {
 		table.setModel(new DefaultTableModel(new Object[][] {oldData}, columnNames));
+		
 	}
 	
 	public static void setNewRows(String[] columnNames, String[] newData) {
@@ -169,17 +198,12 @@ public class ConflictGUI extends JFrame {
 	 * @return true if the user wants to replace the data in the database
 	 */
 	public static boolean dataToBeReplaced() {
-		// waits until the user makes a decision. This 
-				while (!decisionMade) {
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				// when this class is called again, make sure to wait for it the next time
-				decisionMade = false;
-				return replaceOldData;
+		// waits until the user makes a decision
+		while (!decisionMade) {
+			sleep(100);
+		}
+		// when this class is called again, make sure to wait for it the next time
+		decisionMade = false;
+		return replaceOldData;
 	}
 }

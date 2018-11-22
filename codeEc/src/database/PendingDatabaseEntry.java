@@ -189,8 +189,6 @@ public String verifyWithGUIIfNeeded(String databaseName) throws SQLException {
 	}
 	
 	// get the column names for the new entry as an array
-	System.out.println(this.columnNames);
-	System.out.println(this.columnNames.toArray());
 	String[] columnNamesNew = new String[this.columnNames.size()];
 	for (int i = 0; i < this.columnNames.size(); i++)
 		columnNamesNew[i] = (String) this.columnNames.get(i);
@@ -202,7 +200,6 @@ public String verifyWithGUIIfNeeded(String databaseName) throws SQLException {
 	for (String user : userIdToPersonRowIndex.keySet()) {
 		// get the old data from the server
 		sql = "SELECT * FROM " + this.tableName + " WHERE " + MAIN_ID_COLUMN_NAME + " = '" + user + "';";
-		System.out.println(sql);
 		rs = q.queryWithSQL(sql);
 		int i = 0;
 		while (rs.next()) {
@@ -214,11 +211,13 @@ public String verifyWithGUIIfNeeded(String databaseName) throws SQLException {
 		for (int j = 0; j < this.columnNames.size(); j++)
 			newData[j] = (String) this.userData.get(this.userIdToPersonRowIndex.get(user)).get(j);
 		
+		// put
 		ConflictGUI.setNewRows(columnNamesNew, newData);
 		ConflictGUI.setOldRows(columnNames, oldData);
 		
 		// waits for user to pick whether they want to keep or toss the old data
 		boolean replaceOldData = ConflictGUI.dataToBeReplaced();
+		
 		if (replaceOldData) {
 			dumpUserIntoDatabase(databaseName, user);
 			output += "replaced data for " + user + "\n";

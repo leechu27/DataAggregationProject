@@ -80,12 +80,8 @@ public class OrganizationGUI extends JFrame {
 			       System.out.println("You chose to open this file: " +
 			            chooser.getSelectedFile().getName());
 						String filepath = chooser.getSelectedFile().getAbsolutePath();
-						try {
-							dumpIntoDatabase(filepath);
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						System.out.println("comparing old and new entries for " + filepath);
+						ConflictGUI.dumpIntoDatabase(filepath);
 
 			    }
 				
@@ -117,7 +113,5 @@ public class OrganizationGUI extends JFrame {
 		PendingDatabaseEntry entry = (PendingDatabaseEntry) csvp.parseCSVBasicICareTemplate(filepath);
 		entry.verifyWithGUIIfNeeded(databaseName);
 		System.out.println(entry.dumpIntoDatabase(databaseName));
-		System.out.println("dumped from " + filepath);
-		System.out.println("into " + databaseName);
 	}
 }
