@@ -9,8 +9,8 @@ public class UserQuery {
 	 * @param username
 	 * @param password
 	 * @return type of user indicated by integer, -1 for failed login, 
-	 * 1 for TEQ mid level worker
-	 * 2 for TEQ low level worker
+	 * 1 for TEQ low level worker
+	 * 2 for TEQ mid level worker
 	 * 3 for TEQ high level worker
 	 * 4 for Organization Owner
 	 * @throws SQLException

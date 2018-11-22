@@ -97,9 +97,14 @@ public class LoginGUI extends JFrame {
 
 				if (userType == -1) {
 				  // TODO tell them the error
-        } else if (userType == 1 || userType == 2 || userType == 3) {
-          OrganizationGUI.main(null);
-          // TODO do different things for different users
+        } else if (userType == 4) {
+        	OrganizationGUI.main(null);
+        } else if (userType == 3) {
+        	TEQHighLevelGUI.main(null);
+        } else if (userType == 2) {
+        	TEQMidLevelGUI.main(null);
+        } else if (userType == 1) {
+        	TEQLowLevelGUI.main(null);
         }
 
 
