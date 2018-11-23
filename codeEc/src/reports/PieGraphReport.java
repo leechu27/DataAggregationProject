@@ -3,10 +3,15 @@ package reports;
 import gui.InvalidFileException;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
+import database.DatabaseQuery;
+import databaseSelector.DatabaseSelector;
 
 public class PieGraphReport implements Report{
 
@@ -55,6 +60,20 @@ public class PieGraphReport implements Report{
   @Override
   public void clear() {
     data.clear();
+  }
+
+
+  @Override
+  public void addDatabaseEntries(DatabaseQuery database, String table, Map<String, String> entries) throws SQLException {
+    int value;
+    String condition;
+    String label;
+    for (Entry entry : entries.entrySet()) {
+      label = (String) entry.getKey();
+      condition = (String) entry.getValue();
+      value = DatabaseSelector.countRows(database, table, condition);
+      setNewData(label, value);
+    }
   }
   
   /*public static void main(String[] args) {
