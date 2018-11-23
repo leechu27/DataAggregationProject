@@ -68,7 +68,7 @@ public class PieGraphReport implements Report{
     int value;
     String condition;
     String label;
-    for (Entry entry : entries.entrySet()) {
+    for (Entry<String, String> entry : entries.entrySet()) {
       label = (String) entry.getKey();
       condition = (String) entry.getValue();
       value = DatabaseSelector.countRows(database, table, condition);
