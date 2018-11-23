@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TEQ extends JFrame {
 
@@ -80,6 +82,12 @@ public class TEQ extends JFrame {
 		textField_2.setColumns(10);
 		
 		JButton btnCreate = new JButton("Create");
+		btnCreate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Create button clicked");
+			}
+		});
 		btnCreate.setBounds(245, 365, 89, 23);
 		contentPane.add(btnCreate);
 		
@@ -107,6 +115,15 @@ public class TEQ extends JFrame {
 		contentPane.add(lblTeq);
 		
 		btnNewButton = new JButton("Filter\r\n");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("Filter button clicked");
+				System.out.println("Table: " + textField.getText());
+				System.out.println("Condition: " + textField_1.getText());
+				System.out.println("Label: " + textField_2.getText());
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnNewButton.setBounds(382, 94, 131, 93);
 		contentPane.add(btnNewButton);
