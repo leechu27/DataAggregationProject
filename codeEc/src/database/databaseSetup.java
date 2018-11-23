@@ -366,7 +366,7 @@ public class databaseSetup {
     		"    assessment_update_reason_id\r\n" + 
     		");\r\n" + 
     		"";
-    String sqlEmployment="CREATE TABLE Employment (\r\n" + 
+    String sqlEmployment="CREATE TABLE if not exists Employment (\r\n" + 
     		"    processing_details,\r\n" + 
     		"    update_record_id,\r\n" + 
     		"    client_validation_type_id,\r\n" + 
