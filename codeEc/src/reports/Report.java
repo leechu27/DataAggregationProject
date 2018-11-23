@@ -1,5 +1,9 @@
 package reports;
 
+import java.sql.SQLException;
+import java.util.Map;
+import database.DatabaseQuery;
+
 public interface Report {
 	
 	/*
@@ -18,4 +22,14 @@ public interface Report {
 	 * clears the data set of existing values
 	 */
 	public void clear();
+	
+	/*
+	 * Parses the data in the database based on the entries inputed and adds the value alongside the entry for the report
+	 * 
+	 * @param database    the database to retrieve the data from
+	 * @param table       the table in the database to retrieve the database from
+	 * @param entries     a map where keys are the label and the values are the conditions for the SQL command
+	 */
+	public void addDatabaseEntries(DatabaseQuery database, String table, Map<String, String> entries) throws SQLException; 
+
 }
