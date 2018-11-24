@@ -6,17 +6,6 @@ import java.sql.*;
 
 public class databaseSetup {
 
-  final public static String[] tableNames = {
-          "ClientProfile",
-          "information_and_orientation",
-          "employment",
-          "client_enrollment",
-          "children",
-          "community_connection",
-          "client_setup",
-          "client_exit"
-  };
-
   public static void main(String[] args) throws SQLException {
     createNewDatabase("test.db");
     initializeNewTables("test.db");
@@ -77,7 +66,7 @@ public class databaseSetup {
     String sqlClientProfile = "CREATE TABLE if not exists Client_Profile (\r\n" + 
     		"    processing_details        STRING,\r\n" + 
     		"    client_validation_type_id STRING,\r\n" + 
-    		"    client_validation_id      STRING,\r\n" + 
+    		"    client_validation_id      STRING  UNIQUE,\r\n" + 
     		"    client_birth_dt           DATE,\r\n" + 
     		"    phone_no                  INTEGER,\r\n" + 
     		"    email_txt_ind             BOOLEAN,\r\n" + 
@@ -92,13 +81,14 @@ public class databaseSetup {
     		"    postal_txt                STRING,\r\n" + 
     		"    official_language_id      STRING,\r\n" + 
     		"    consent_ind               BOOLEAN\r\n" + 
-    		");";
+    		");\r\n" + 
+    		"";
 
     String sqlLTClientEnrollNew = "CREATE TABLE if not exists LT_Client_Enroll_New (\r\n" + 
     		"    processing_details,\r\n" + 
     		"    update_record_id,\r\n" + 
     		"    client_validation_type_id,\r\n" + 
-    		"    client_validation_id,\r\n" + 
+    		"    client_validation_id   PRIMARY KEY,\r\n" + 
     		"    client_birth_dt,\r\n" + 
     		"    postal_cd,\r\n" + 
     		"    course_cd,\r\n" + 
@@ -134,7 +124,7 @@ public class databaseSetup {
     		"    processing_details,\r\n" + 
     		"    update_record_id,\r\n" + 
     		"    client_validation_type_id,\r\n" + 
-    		"    client_validation_id,\r\n" + 
+    		"    client_validation_id   PRIMARY KEY,\r\n" + 
     		"    client_birth_dt,\r\n" + 
     		"    course_cd,\r\n" + 
     		"    training_status_id,\r\n" + 
@@ -172,7 +162,7 @@ public class databaseSetup {
     		"    valid                                                  BOOLEAN NOT NULL\r\n" + 
     		"                                                                   DEFAULT (false) \r\n" + 
     		");\r\n" + 
-    		""; // TODO add non mandatory fields
+    		""; 
 
     String sqlLT_Course_Setup_New = "CREATE TABLE if not exists LT_Course_Setup_New (\r\n" + 
     		"    processing_details,\r\n" + 
@@ -299,7 +289,7 @@ public class databaseSetup {
     		"    processing_details,\r\n" + 
     		"    update_record_id,\r\n" + 
     		"    client_validation_type_id,\r\n" + 
-    		"    client_validation_id,\r\n" + 
+    		"    client_validation_id   PRIMARY KEY,\r\n" + 
     		"    client_birth_dt,\r\n" + 
     		"    postal_cd,\r\n" + 
     		"    service_lang_id,\r\n" + 
@@ -366,7 +356,7 @@ public class databaseSetup {
     		"    assessment_update_reason_id\r\n" + 
     		");\r\n" + 
     		"";
-    String sqlEmployment="CREATE TABLE Employment (\r\n" + 
+    String sqlEmployment="CREATE TABLE if not exists Employment (\r\n" + 
     		"    processing_details,\r\n" + 
     		"    update_record_id,\r\n" + 
     		"    client_validation_type_id,\r\n" + 

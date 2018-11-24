@@ -17,6 +17,10 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
    * each insertion contains the table name, Column name,
    * and data to be inserted respectively in that order
    */
+  private final static int TABLE_NAME_INDEX = 0;
+  private final static int COLUMN_NAME_INDEX = 1;
+  private final static int DATA_NAME_INDEX = 2;
+  
   private HashMap<String, ArrayList<List<String>>> insertions;
 
   /**
@@ -51,6 +55,8 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
   }
 
 
+  
+  
   /**
    *  Once all of the fields you want to add are added, you can run this
    *  method to dump all of the data into the main database
@@ -61,8 +67,8 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
     // Go through each user, and add their data to the database
     for (String userId : insertions.keySet()) {
       for (List<String> data : insertions.get(userId)) {
-        String tableName = data.get(0);
-        String columnName = data.get(1).replace("ï", "").replace("»", "").replace("¿", ""); // pretend you don't see this
+        String tableName = data.get(TABLE_NAME_INDEX);
+        String columnName = data.get(COLUMN_NAME_INDEX).replace("ï", "").replace("»", "").replace("¿", ""); // pretend you don't see this
         String insertable = data.get(2);
 
         String sql =
@@ -84,23 +90,24 @@ public class PendingDatabaseEntry implements PendingDatabaseEntryInterface {
    */
   public String getAsSQL(String databaseName) {
     database.DatabaseQuery dq = new database.DatabaseQuery(databaseName);
-    String ret = "";
+    String returnVal = "";
     // Go through each user, and add their data to the database
     for (String userId : insertions.keySet()) {
       for (List<String> data : insertions.get(userId)) {
-        String tableName = data.get(0);
-        String columnName = data.get(1);
-        String insertable = data.get(2);
-
+        String tableName = data.get(TABLE_NAME_INDEX);
+        String columnName = data.get(COLUMN_NAME_INDEX);
+        String insertable = data.get(DATA_NAME_INDEX);
+        
+        
         String sql =
                 "UPDATE " + tableName + "\n" +
-                        "SET " + columnName + " = '" + insertable + "'\n" +
-                        "WHERE id = " + userId.toString() + ";";
+                "SET " + columnName + " = '" + insertable + "'\n" +
+                "WHERE client_validation_id = " + userId + ";";
 
-        ret += sql + "\n";
+        returnVal += sql + "\n";
       }
     }
-    return ret;
+    return returnVal;
   }
 
 }
