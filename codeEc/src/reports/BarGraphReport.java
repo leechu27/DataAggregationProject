@@ -2,10 +2,15 @@ package reports;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+import database.DatabaseQuery;
+import databaseSelector.DatabaseSelector;
 import gui.InvalidFileException;
 
 public class BarGraphReport implements Report{
@@ -56,6 +61,19 @@ public class BarGraphReport implements Report{
   @Override
   public void clear() {
     data.clear();
+  }
+
+  @Override
+  public void addDatabaseEntries(DatabaseQuery database, String table, Map<String, String> entries) throws SQLException {
+    int value;
+    String condition;
+    String label;
+    for (Entry<String, String> entry : entries.entrySet()) {
+      label = (String) entry.getKey();
+      condition = (String) entry.getValue();
+      value = DatabaseSelector.countRows(database, table, condition);
+      setNewData(label, value);
+    }
   }
   
   /*
