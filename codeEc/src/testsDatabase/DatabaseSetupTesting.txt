@@ -1,0 +1,9 @@
+To test the creation of a new database:
+	- Delete the test.db file inside of codeEc
+	- Run database setup
+	- Connect with sqlite studio to see whether the database has connected
+	- Any queries that we want to run on the code, we must verify on sqlite studio
+		that it works on the dummy database before we apply it to production
+
+To test what happens when you run DatabaseQuery again:
+	- Use sqlite studio to verify that no information has been overwritten
