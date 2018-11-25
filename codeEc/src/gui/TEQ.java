@@ -93,32 +93,14 @@ public class TEQ extends JFrame {
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		try {
-		    report = new PieGraphReport("report.png", "Report");
-		} catch (InvalidFileException e1) {
-		    e1.printStackTrace();
-		}
+		
+		
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Create button clicked");
-				int result;
-				String choosertitle = null;
-				
-			    	JFileChooser chooser = new JFileChooser(); 
-			    	chooser.setCurrentDirectory(new java.io.File("."));
-			    	chooser.setDialogTitle(choosertitle);
-			    	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			   
-			    	chooser.setAcceptAllFileFilterUsed(false);
-			        
-			    	if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
-			      		System.out.println("getCurrentDirectory(): "+  chooser.getCurrentDirectory());
-			      		System.out.println("getSelectedFile() : " +  chooser.getSelectedFile());}
-			    	else {
-			      		System.out.println("No Selection ");}
 				report.writeToFile();
 			}
 		});
@@ -173,5 +155,31 @@ public class TEQ extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnNewButton.setBounds(382, 94, 131, 93);
 		contentPane.add(btnNewButton);
+		
+		database = new DatabaseQuery("test.db");
+		
+		String choosertitle = null;
+        
+        JFileChooser chooser = new JFileChooser(); 
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle(choosertitle);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+   
+        chooser.setAcceptAllFileFilterUsed(false);
+        
+        try {
+          if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
+            System.out.println("getCurrentDirectory(): "+  chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : " +  chooser.getSelectedFile());
+            report = new PieGraphReport(chooser.getSelectedFile().toString(), "Report");
+          }
+          else {
+            System.out.println("No Selection ");
+             report = new PieGraphReport("report.png", "Report");
+            
+          }
+        } catch (InvalidFileException e1) {
+          e1.printStackTrace();
+        }
 	}
 }

@@ -4,6 +4,6 @@ package gui;
 public class InvalidFileException extends Exception {
     
     public InvalidFileException() {
-        super("file is not of .csv");
+        super("file is not of .png");
     }
 }
