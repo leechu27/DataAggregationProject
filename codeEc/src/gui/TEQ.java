@@ -171,7 +171,11 @@ public class TEQ extends JFrame {
           if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
             System.out.println("getCurrentDirectory(): "+  chooser.getCurrentDirectory());
             System.out.println("getSelectedFile() : " +  chooser.getSelectedFile());
-            report = new PieGraphReport(chooser.getSelectedFile().toString(), "Report");
+            if (chooser.getSelectedFile().toString().endsWith(".png")) {
+              report = new PieGraphReport(chooser.getSelectedFile().toString(), "Report");
+            } else {
+              report = new PieGraphReport("report.png", "Report");
+            }
           }
           else {
             System.out.println("No Selection ");
