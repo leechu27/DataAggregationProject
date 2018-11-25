@@ -23,8 +23,8 @@ public class PieGraphReport implements Report{
   
   /* constructor for PieGraphReport
    * 
-   * @param fileLocation    the file path as a string
-   * @param title   the title of the report
+   * @param fileLocation            the file path as a string
+   * @param title                   the title of the report
    * @throws InvalidFileException   If file is not a PNG
    */
   public PieGraphReport(String fileLocation, String title) throws InvalidFileException {
@@ -52,6 +52,9 @@ public class PieGraphReport implements Report{
     data.setValue(key, value);
   }
 
+  /*
+   * creates the chart with the data stored
+   */
   private JFreeChart createChart() {
     JFreeChart pieChart = ChartFactory.createPieChart(title, data);
     return pieChart;

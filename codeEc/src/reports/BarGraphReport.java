@@ -24,7 +24,13 @@ public class BarGraphReport implements Report{
   private String value;
   
   /*
+   * Constructor for BarGraphReport
    * 
+   * @param fileLocation    the file path as a string
+   * @param title           the title of the report
+   * @param category        the label for all categories in the graph; the x-axis of the graph
+   * @param value           the label for all the value of categories in the graph; the y-axis of the graph
+   * @throws InvalidFileException   If file is not a PNG
    */
   public BarGraphReport(String fileLocation, String title, String category, String value) throws InvalidFileException {
     if (!fileLocation.endsWith(".png")) {
@@ -53,6 +59,9 @@ public class BarGraphReport implements Report{
     data.setValue(value, this.value, key);
   }
 
+  /*
+   * creates the chart with the data stored
+   */
   private JFreeChart createChart() {
     JFreeChart barChart = ChartFactory.createBarChart(title, category, value, data);
     return barChart;
