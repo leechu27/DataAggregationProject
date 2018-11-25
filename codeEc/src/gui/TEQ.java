@@ -21,6 +21,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.util.*;
+
 public class TEQ extends JFrame {
 
 	private JPanel contentPane;
@@ -99,6 +104,21 @@ public class TEQ extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Create button clicked");
+				int result;
+				String choosertitle = null;
+				
+			    	JFileChooser chooser = new JFileChooser(); 
+			    	chooser.setCurrentDirectory(new java.io.File("."));
+			    	chooser.setDialogTitle(choosertitle);
+			    	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			   
+			    	chooser.setAcceptAllFileFilterUsed(false);
+			        
+			    	if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
+			      		System.out.println("getCurrentDirectory(): "+  chooser.getCurrentDirectory());
+			      		System.out.println("getSelectedFile() : " +  chooser.getSelectedFile());}
+			    	else {
+			      		System.out.println("No Selection ");}
 				report.writeToFile();
 			}
 		});
