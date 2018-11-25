@@ -20,28 +20,6 @@ public class databaseSetup {
     System.out.println(UserQuery.login("Alice","123"));
   }
 
-  /**
-   * Runs raw sql on the server
-   * this method is package private
-   * @param sql
-   * @return
-   */
-  static ResultSet runRawSQL(String sql, String databasePath) {
-    ResultSet output = null;
-
-    // runs the actual sql command
-    String url = "jdbc:sqlite:" + databasePath;
-    try {Connection conn = DriverManager.getConnection(url);
-      Statement stmt = conn.createStatement();
-      output = stmt.executeQuery(sql);
-    }
-    catch (SQLException e) {
-      System.out.println(e.getMessage());
-    }
-
-    return output;
-  }
-
 
   public static void createNewDatabase(String databasePath) {
 
