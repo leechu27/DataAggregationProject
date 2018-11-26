@@ -132,8 +132,8 @@ public class TEQ extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				System.out.println("Filter button clicked");
-				String tableInput = textField.getText();
-				String condition = textField_1.getText();
+				String tableInput = textField_1.getText();
+				String condition = textField.getText();
 				String label = textField_2.getText();
 				System.out.println("Table: " + tableInput);
 				System.out.println("Condition: " + condition);
