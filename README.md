@@ -28,7 +28,15 @@ Added project deliverable 5
 - Added Product Backlog for sprint 4 and sprint 5
 - Added Code Review Summary for sprint 4 and sprint 5
 
-Running Instructions:
+# Setup Instructions
+1) In order to run the code, you will need [Eclipse](https://www.eclipse.org/downloads/). 
+2) When opening Eclipse you are prompted to choose your workspace, find the location and choose `C:/.../Team26` as your workspace.
+3) To start the new project go to File -> Open Projects From File System -> Directory. Then select the `C:/.../Team26/codeEc` directory. Press finish to confirm. You are now able to run the files.
 
-Command Line Instructions (Easy Running):
-This project uses maven to build. First, cd into `code/`. Then run `mvn compile` to compile the code, or `mvn test` to run test cases. Once the project has built succesfully, change directory into `code/target/classes`. Then run `java com.c01_project.Main`. You should see that database's output, as a well as a gui that lets you log into the program.
+# Running Instructions
+1) All source files will be inside `src/` To run any file, simply right click on it and choose Run As -> Java Application
+2) To create a new, fresh database, delete `test.db` if it is there and run `database/databaseSetup.java`, this should not be needed as there is a functional one there already.
+3) To run the main program, start with running `gui/Login.java.` All other components with a main method can be run separately as well.
+
+# Testing Instructions
+All testing folders will be inside `src/` and start with the word `tests`. For example `testsDatabase` tests the components inside the database package. All automated tests can be run like any other class like in step 1. Any manual tests will have their own writeup for manual testing. 
