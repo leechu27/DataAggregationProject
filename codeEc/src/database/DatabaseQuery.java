@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class DatabaseQuery {
 
-  private Connection connection;
-  private String path;
+  private static Connection connection;
+  private static String path;
 
   public DatabaseQuery(String pathToDatabase) {
     path = pathToDatabase;
@@ -33,7 +33,7 @@ public class DatabaseQuery {
    * queries the database
    * @param pathToDatabase the path to the SQLite database
    */
-  public ResultSet queryWithSQL(String rawSQL) {
+  public static ResultSet queryWithSQL(String rawSQL) {
 
     ResultSet output = null;
     // make sure the programmer is not trying to make anything dangerous
@@ -42,7 +42,7 @@ public class DatabaseQuery {
             rawSQL.startsWith("select");
 
     // runs the actual sql command
-    String url = "jdbc:sqlite:" + this.path;
+    String url = "jdbc:sqlite:" + path;
     try {
       Statement stmt = connection.createStatement();
       output = stmt.executeQuery(rawSQL);

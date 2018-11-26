@@ -17,7 +17,7 @@ public class UserQuery {
 	 */
 	  public static int login(String username, String password) throws SQLException {
 		  String sql = "select * from Users where username = '"+username+"' and password = '"+password+"';";
-		  ResultSet rs = databaseSetup.runRawSQL(sql, "test.db");
+		  ResultSet rs = DatabaseQuery.queryWithSQL(sql);
 		  int type=-1;
 		  if (rs.next()) {
 	          type=rs.getInt("type");
@@ -28,7 +28,7 @@ public class UserQuery {
 	  
 	  public static boolean addUser(String username, String password, int type) throws SQLException {
 		  String sql="select * from Users where username = '"+username+"';";
-		  ResultSet rs= databaseSetup.runRawSQL(sql,"test.db");
+		  ResultSet rs= DatabaseQuery.queryWithSQL(sql);
 		  int rownum=0;
 		  while(rs.next()) {
 			  rownum+=1;
@@ -37,7 +37,7 @@ public class UserQuery {
 			  return false;
 		  }
 		  sql="Insert INTO Users (username,password,type) values ('"+username+"','"+password+"',"+type+");";
-		  databaseSetup.runRawSQL(sql,"test.db");
+		  DatabaseQuery.queryWithSQL(sql);
 		  return true;
 	  }
 }
