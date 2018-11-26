@@ -145,6 +145,7 @@ public class TEQ extends JFrame {
                     try {
                       count = DatabaseSelector.countRows(database, tableInput, condition);
                       model.addRow(new Object[]{label, condition, count});
+                      report.setNewData(label, count);
                     } catch (SQLException e) {
                       e.printStackTrace();
                     }
