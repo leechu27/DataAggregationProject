@@ -4,29 +4,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserQuery {
+	public static final int TEQLOW= 1;
+	public static final int TEQMID	=2;
+	public static final int TEQHIGH	=3;
+	public static final int ORGANIZATION=4;
+	public static final int USERNOTFOUND=-1;
 	/**
 	 * Try to login with provided username and password
 	 * @param username
 	 * @param password
 	 * @return type of user indicated by integer, -1 for failed login, 
-	 * 1 for TEQ mid level worker
-	 * 2 for TEQ low level worker
-	 * 3 for TEQ high level worker
-	 * 4 for Organization Owner
 	 * @throws SQLException
 	 */
 	  public static int login(String username, String password) throws SQLException {
 		  DatabaseQuery dq = new DatabaseQuery("test.db");
 		  String sql = "select * from Users where username = '"+username+"' and password = '"+password+"';";
 		  ResultSet rs = dq.queryWithSQL(sql);
-		  int type=-1;
+		  int type=USERNOTFOUND;
 		  if (rs.next()) {
 	          type=rs.getInt("type");
 		  }
 		  // 
 		  return type;
 	  }
-	  
+	  /**
+	   * Add user based on username, password and usertype that's imported
+	   * @param username
+	   * @param password
+	   * @param type
+	   * @return
+	   * @throws SQLException
+	   */
 	  public static boolean addUser(String username, String password, int type) throws SQLException {
 		  DatabaseQuery dq = new DatabaseQuery("test.db");
 		  String sql="select * from Users where username = '"+username+"';";

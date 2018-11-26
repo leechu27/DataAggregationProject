@@ -5,22 +5,22 @@ import database.*;
 import java.sql.*;
 
 public class databaseSetup {
-
-  public static void main(String[] args) throws SQLException {
-    createNewDatabase("test.db");
+	//creating database called test.db for running the program without a database
+	//4 default users representing 4 default type will be added
+  public static void main(String[] args) throws SQLException {  
+	createNewDatabase("test.db");
     initializeNewTables("test.db");
-    //database.CSVParser t1=new database.CSVParser();
-    //t1.parseCSVBasicICareTemplate("sample_data.csv");
     //default users added
     UserQuery.addUser("Alice","123",1);
     UserQuery.addUser("Bob","123",2);
     UserQuery.addUser("Cody","123",3);
     UserQuery.addUser("Jeff","123",4);
-    //sample login usage
-    System.out.println(UserQuery.login("Alice","123"));
   }
 
-
+/**
+ * Creating new database with given database path
+ * @param databasePath the location and name of newly created database
+ */
   public static void createNewDatabase(String databasePath) {
 
     String url = "jdbc:sqlite:" + databasePath;
@@ -36,7 +36,10 @@ public class databaseSetup {
       System.out.println(e.getMessage());
     }
   }
-  
+  /**
+   * Initializing tables with given database and schema in Schema.java
+   * @param databasePath the location and name of database
+   */
   public static void initializeNewTables(String databasePath) {
     String url = "jdbc:sqlite:" + databasePath;
 

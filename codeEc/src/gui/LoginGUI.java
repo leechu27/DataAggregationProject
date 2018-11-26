@@ -88,16 +88,16 @@ public class LoginGUI extends JFrame {
 				String username = textField.getText();
 				String password = textField_1.getText();
 				System.out.println("Login clicked! User name is: " + username + " password given is: " + password);
-				int userType = -1;
+				int userType = UserQuery.USERNOTFOUND;
 				try {
 					userType = UserQuery.login(username, password);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 
-				if (userType == -1) {
+				if (userType == UserQuery.USERNOTFOUND) {
 				  // TODO tell them the error
-        } else if (userType == 1 || userType == 2 || userType == 3) {
+        } else if (userType == UserQuery.ORGANIZATION || userType == UserQuery.TEQHIGH || userType == UserQuery.TEQMID||userType==UserQuery.TEQLOW) {
           OrganizationGUI.main(null);
           // TODO do different things for different users
         }
