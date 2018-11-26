@@ -27,6 +27,7 @@ Added project deliverable 5
 - Added Sprint Backlog for sprint 4 and sprint 5
 - Added Product Backlog for sprint 4 and sprint 5
 - Added Code Review Summary for sprint 4 and sprint 5
+- Added [explanatory video](https://youtu.be/TcPPHTwc37Y)
 
 # Setup Instructions
 1) In order to run the code, you will need [Eclipse](https://www.eclipse.org/downloads/). 
