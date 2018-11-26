@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
@@ -161,7 +162,7 @@ public class ConflictGUI extends JFrame {
 				}
 				else {
 					System.out.println("new data selected");
-					replaceOldData = false;
+					replaceOldData = true;
 				}
 			}
 		});
@@ -184,11 +185,17 @@ public class ConflictGUI extends JFrame {
 	}
 	
 	public static void setOldRows(String[] columnNames, String[] oldData) {
+		DefaultTableModel m = (DefaultTableModel) table.getModel();
+		m.removeRow(0);
+		m.addRow(oldData);
 		table.setModel(new DefaultTableModel(new Object[][] {oldData}, columnNames));
 		
 	}
 	
 	public static void setNewRows(String[] columnNames, String[] newData) {
+		DefaultTableModel m = (DefaultTableModel) table.getModel();
+		m.removeRow(0);
+		m.addRow(newData);
 		table_1.setModel(new DefaultTableModel(new Object[][] {newData}, columnNames));
 	}
 

@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseQuery {
 
-  private static Connection connection;
+  private Connection connection;
   private static String path;
 
   public DatabaseQuery(String pathToDatabase) {
@@ -33,7 +33,7 @@ public class DatabaseQuery {
    * queries the database
    * @param pathToDatabase the path to the SQLite database
    */
-  public static ResultSet queryWithSQL(String rawSQL) {
+  public ResultSet queryWithSQL(String rawSQL) {
 
     ResultSet output = null;
     // make sure the programmer is not trying to make anything dangerous
